@@ -1,0 +1,43 @@
+{
+  "rules": {
+    "games": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && !newData.exists() && data.child('state/creator').val() === auth.uid",
+        ".validate": "$code.matches(/^[A-Z]{4}$/)",
+        "state": {
+          ".write": "auth != null && (!data.exists() ? newData.child('creator').val() === auth.uid : (data.child('creator').val() === auth.uid || data.child('teams').child(auth.uid).exists()))",
+          ".validate": "newData.hasChildren(['status', 'creator', 'budget', 'max', 'seq'])"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && root.child('games').child($code).child('state/status').val() === 'lobby' && (auth.uid === $uid || root.child('games').child($code).child('state/creator').val() === auth.uid)",
+            ".validate": "!newData.exists() || (newData.hasChildren(['name', 'f']) && newData.child('name').isString() && newData.child('name').val().length <= 40 && newData.child('f').isString())"
+          }
+        },
+        "bids": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && root.child('games').child($code).child('state/phase').val() === 'bid' && root.child('games').child($code).child('state/teams').child($uid).exists() && newData.child('r').val() === root.child('games').child($code).child('state/round').val() && now <= root.child('games').child($code).child('state/cur/end').val() + 1500 && (!data.exists() || data.child('r').val() !== newData.child('r').val())",
+            ".validate": "newData.hasChildren(['r', 'a', 't']) && newData.child('a').isNumber() && newData.child('a').val() >= 0 && newData.child('a').val() <= 100000"
+          }
+        }
+      }
+    },
+    "index": {
+      ".read": "auth != null",
+      ".indexOn": ["createdAt"],
+      "$code": {
+        ".write": "auth != null && (!data.exists() ? newData.child('creator').val() === auth.uid : (data.child('creator').val() === auth.uid || root.child('games').child($code).child('state/teams').child(auth.uid).exists()))"
+      }
+    },
+    "presence": {
+      "$code": {
+        ".read": "auth != null",
+        "$uid": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "!newData.exists() || newData.isBoolean()"
+        }
+      }
+    }
+  }
+}

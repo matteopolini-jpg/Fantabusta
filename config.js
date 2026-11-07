@@ -6,7 +6,13 @@
 // window.FANTABUSTA_FIREBASE = {
 //   apiKey: "...",
 //   authDomain: "TUO-PROGETTO.firebaseapp.com",
-//   databaseURL: "https://TUO-PROGETTO-default-rtdb.europe-west1.firebasedatabase.app",
-//   projectId: "TUO-PROGETTO",
+//   databaseURL: "https://gioco-asta-calcio-buste-default-rtdb.europe-west1.firebasedatabase.app",
+//   projectId: "gioco-asta-calcio-buste",
 //   appId: "..."
 // };
+      window.FANTABUSTA_FIREBASE = {
+     apiKey: "AIzaSyD0JaEUBEOpO-OqIfA1eeMlTw5ALQjzAqE",
+     authDomain: "gioco-asta-calcio-buste.firebaseapp.com",
+     databaseURL: "https://gioco-asta-calcio-buste-default-rtdb.europe-west1.firebasedatabase.app",
+     projectId: "gioco-asta-calcio-buste"
+   };

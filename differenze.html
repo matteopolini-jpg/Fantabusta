@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#2a1d35">
 <meta name="description" content="Trova le differenze: due disegni quasi uguali, vince chi trova prima le differenze.">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -147,12 +147,20 @@ h2 { font: 600 22px/1.2 Fredoka, Figtree, sans-serif; }
 .toast.hidden { display: none; }
 @media (prefers-reduced-motion: reduce) { .cover { transition: none; } }
 
+/* tasti dei suoni e della chat */
+:root { --tool-bg: var(--plum-2); --tool-bg-solid: var(--plum-2); --tool-ink: var(--cream); --tool-bd: 1px solid var(--line); --tool-ring: var(--plum);
+  --chat-bg: #33243f; --chat-ink: var(--cream); --chat-acc: var(--lilac); --chat-acc-ink: var(--plum); --chat-muted: var(--muted); --chat-line: var(--line); --chat-them: rgba(255, 255, 255, .09); --chat-field: rgba(255, 255, 255, .06); --chat-badge: var(--bad); --chat-font: Figtree, system-ui, sans-serif; }
+.top-r { display: flex; align-items: center; gap: 10px; }
+.top-t { white-space: nowrap; }
+.cover.wait #cover-t { white-space: pre-line; line-height: 1.05; }
+.cover.wait #cover-t::first-line { font-size: 26px; color: #fff; }
+
 </style>
 </head>
 <body>
 <main id="app" data-screen=""><div class="msg"><p>Un attimo…</p></div></main>
 <noscript><p style="padding:16px">Il gioco ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="differenze.js?v=74ddaa84"></script>
+<script type="module" src="differenze.js?v=c666c24a"></script>
 </body>
 </html>

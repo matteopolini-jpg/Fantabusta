@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#f2c443">
 <meta name="description" content="Scovaparole: trova più parole che puoi nella griglia di lettere, sfidando gli amici.">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -166,12 +166,18 @@ h2 { font: 400 22px/1.2 'Lilita One', Figtree, sans-serif; letter-spacing: .01em
 @media (prefers-reduced-motion: reduce) { .cover { transition: none; } }
 .shuffle { margin-top: 12px; }
 
+/* tasti dei suoni e della chat */
+:root { --tool-bg: var(--tile); --tool-bg-solid: var(--tile); --tool-ink: var(--ink); --tool-bd: 2px solid var(--ink); --tool-ring: var(--mus);
+  --chat-bg: var(--tile); --chat-ink: var(--ink); --chat-acc: var(--tray); --chat-acc-ink: var(--tile); --chat-muted: var(--ink-2); --chat-line: var(--rule); --chat-them: #f0e5c9; --chat-field: #fff; --chat-badge: var(--bad); --chat-font: Figtree, system-ui, sans-serif; }
+.top-r { display: flex; align-items: center; gap: 10px; }
+.top-t { white-space: nowrap; }
+
 </style>
 </head>
 <body>
 <main id="app" data-screen=""><div class="msg"><p>Un attimo…</p></div></main>
 <noscript><p style="padding:16px">Il gioco ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="scovaparole.js?v=85874dea"></script>
+<script type="module" src="scovaparole.js?v=a24f30ab"></script>
 </body>
 </html>

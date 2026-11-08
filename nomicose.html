@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#fbfcf9">
 <meta name="description" content="Nomi, cose, città: esce una lettera e ognuno, sul suo telefono, trova una parola per ogni categoria.">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -215,12 +215,18 @@ h2.hand { font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--ink)
 .row.wrap { flex-wrap: wrap; }
 .addrow { gap: 4px 18px; }
 
+/* tasti dei suoni e della chat */
+:root { --tool-bg: #fff; --tool-bg-solid: #fff; --tool-ink: var(--ink); --tool-bd: 1.5px solid var(--ink-soft); --tool-ring: var(--paper);
+  --chat-bg: var(--paper); --chat-ink: var(--text); --chat-acc: var(--ink); --chat-acc-ink: #fff; --chat-muted: var(--pencil); --chat-line: var(--rule); --chat-them: #e9f0f7; --chat-badge: var(--red); --chat-font: Figtree, system-ui, sans-serif; }
+.top-r { display: flex; align-items: center; gap: 10px; }
+.top-t { white-space: nowrap; }
+
 </style>
 </head>
 <body>
 <main id="app" data-screen=""><div class="msg"><p>Un attimo…</p></div></main>
 <noscript><p style="padding:16px">Il gioco ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="nomicose.js?v=e422976b"></script>
+<script type="module" src="nomicose.js?v=2940ba55"></script>
 </body>
 </html>

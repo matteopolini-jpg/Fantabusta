@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#d9e4ed">
 <meta name="description" content="The PP Games: giochi da fare insieme, ognuno con il suo telefono, con la classifica di sempre.">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;family=Kalam:wght@700&amp;family=Big+Shoulders+Display:wght@900&amp;family=Lilita+One&amp;family=Fredoka:wght@600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;family=Kalam:wght@700&amp;family=Big+Shoulders+Display:wght@900&amp;family=Lilita+One&amp;family=Fredoka:wght@600&amp;family=Bungee&amp;display=swap">
 <style>
 /* Sala giochi — muro color carta da zucchero, i giochi sono scatole impilate */
 :root { --wall: #d9e4ed; --navy: #15253a; --navy-2: #3d5066; --line: rgba(21, 37, 58, .16); --sun: #f6c445; }
@@ -90,25 +90,16 @@ h1, h2, p { margin: 0; }
 .box-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .box-ring path { fill: none; stroke: currentColor; stroke-width: 5; stroke-linecap: round; }
 .box-ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 700 31px Kalam, cursive; color: #2140a6; padding-top: 6px; }
-.box-fb { rotate: -.6deg; background: #163a26 repeating-linear-gradient(90deg, rgba(255, 255, 255, .04) 0 28px, transparent 28px 56px); box-shadow: 0 7px 0 -1px #0b2216, 0 15px 18px -10px rgba(21, 37, 58, .55); }
-.box-fb:active { box-shadow: 0 3px 0 -1px #0b2216, 0 8px 12px -8px rgba(21, 37, 58, .5); }
-.box-fb .box-t { font: 900 35px/1 'Big Shoulders Display', Impact, sans-serif; color: #fff; letter-spacing: .01em; }
-.box-fb .box-t em { font-style: normal; color: #f0b443; }
-.box-fb .box-s { color: #cfe3d6; }
-.box-env { width: 56px; height: 40px; flex: 0 0 auto; background: #c9a16b; border-radius: 3px; position: relative; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .15); }
-.box-env::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 62%; background: #b0834c; clip-path: polygon(0 0, 100% 0, 50% 100%); }
-.box-env i { position: absolute; left: 50%; top: 58%; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 50%; background: #b8322a; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .2); }
-
-.sec { margin-top: 36px; }
-.sec h2 { font: 800 23px/1.2 Figtree; letter-spacing: -.01em; margin-bottom: 12px; }
-.sec .tiny { margin-top: 8px; }
-.list { display: flex; flex-direction: column; }
-.item { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-top: 1px solid var(--line); }
-.item:last-child { border-bottom: 1px solid var(--line); }
-.code { font-weight: 800; letter-spacing: .06em; }
+.box-fb { rotate: -.6deg; background: #1fae55 repeating-linear-gradient(90deg, #1fae55 0 34px, #189a49 34px 68px); box-shadow: 0 7px 0 -1px #0f7a37, 0 15px 18px -10px rgba(21, 37, 58, .55); }
+.box-fb:active { box-shadow: 0 3px 0 -1px #0f7a37, 0 8px 12px -8px rgba(21, 37, 58, .5); }
+.box-fb .box-t { font: 900 37px/1 'Big Shoulders Display', Impact, sans-serif; color: #fff; letter-spacing: .01em; text-transform: uppercase; text-shadow: 2px 3px 0 #0a1a44; }
+.box-fb .box-t em { font-style: normal; color: #ffd60a; }
+.box-fb .box-s { color: #fff; font-weight: 600; }
+.box-env { width: 58px; height: 44px; flex: 0 0 auto; position: relative; rotate: -4deg; }
+.box-env svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 3px 0 rgba(6, 16, 46, .35)); }
 .g-badge { font: 700 11.5px Figtree; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex: 0 0 auto; }
 .g-ncc { background: #fbfcf9; color: #2140a6; box-shadow: inset 0 0 0 1px #c5d2de; }
-.g-fantabusta { background: #163a26; color: #f0b443; }
+.g-fantabusta { background: #1fae55; color: #fff; }
 .g-scv { background: #f2c443; color: #2b241d; }
 .g-diff { background: #2a1d35; color: #f8f1ff; }
 
@@ -142,6 +133,18 @@ table.board { width: 100%; border-collapse: collapse; font-size: 15px; backgroun
 #splash.out { opacity: 0; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { #splash { transition: none; } }
 
+/* tasto dei suoni */
+:root { --tool-bg: #fff; --tool-bg-solid: #fff; --tool-ink: var(--navy); --tool-bd: 2px solid var(--navy); --tool-ring: var(--wall); --chat-bg: #fff; --chat-ink: var(--navy); --chat-font: Figtree, system-ui, sans-serif; }
+.brand .tools { margin-left: auto; align-self: flex-start; }
+.box-psg { rotate: .5deg; background: #0b6f76 radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, .14), transparent 60%); box-shadow: 0 7px 0 -1px #064a50, 0 15px 18px -10px rgba(21, 37, 58, .5); }
+.box-psg:active { box-shadow: 0 3px 0 -1px #064a50, 0 8px 12px -8px rgba(21, 37, 58, .5); }
+.box-psg .box-t { font: 400 25px/1.05 Bungee, Figtree, sans-serif; color: #fff7e6; }
+.box-psg .box-s { color: #bfe3e2; }
+.box-tiles { display: grid; grid-template-columns: repeat(3, 17px); gap: 3px; flex: 0 0 auto; }
+.box-tiles b { display: grid; place-items: center; width: 17px; height: 21px; border-radius: 3px; background: #fff7e6; color: #0b3438; font: 400 12px Bungee, Figtree, sans-serif; box-shadow: 0 2px 0 #064a50; }
+.box-tiles b.h { background: #0f8790; box-shadow: inset 0 2px 0 rgba(0, 0, 0, .18), 0 2px 0 #064a50; }
+.g-psg { background: #0b6f76; color: #fff7e6; }
+
 </style>
 </head>
 <body>
@@ -150,6 +153,6 @@ table.board { width: 100%; border-collapse: collapse; font-size: 15px; backgroun
 <main id="app"></main>
 <noscript><p style="padding:16px">The PP Games ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="hub.js?v=d870b319"></script>
+<script type="module" src="hub.js?v=7cedbd25"></script>
 </body>
 </html>

@@ -1,0 +1,212 @@
+# FantaBusta: aggiorna i valori di mercato Transfermarkt nel database Firebase del sito.
+# Parte da solo ogni lunedì mattina, quando carichi questo file e quando premi «Run workflow»
+# (scheda Actions del repository, «Aggiorna valori Transfermarkt»).
+name: Aggiorna valori Transfermarkt
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 4 * * 1'
+  push:
+    paths:
+      - '.github/workflows/valori-transfermarkt.yml'
+      - 'transfermarkt-id.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: valori-transfermarkt
+  cancel-in-progress: false
+
+jobs:
+  valori:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Scarica i valori da Transfermarkt e li scrive nel database
+        run: |
+          python3 - <<'PY'
+          # Aggiorna i valori di mercato Transfermarkt di FantaBusta e li scrive nel database Firebase del sito.
+          # Gira su GitHub (Actions) ogni lunedì e quando si preme «Run workflow». Usa solo la libreria standard di Python.
+          import json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
+
+          API = os.environ.get('TM_API', 'https://tmapi.transfermarkt.technology')
+          GAP = float(os.environ.get('TM_GAP', '0.4'))          # pausa tra una richiesta e l'altra, in secondi
+          BATCH = 80
+          REPO = os.environ.get('GITHUB_REPOSITORY', '')
+          UA = 'ThePPGames-FantaBusta/1.0 (aggiornamento settimanale; https://github.com/' + REPO + ')'
+
+
+          def stop(msg):
+              print('ERRORE: ' + msg)
+              sys.exit(1)
+
+
+          def http(url, data=None, method=None, headers=None, tries=4):
+              h = {'Accept': 'application/json', 'User-Agent': UA}
+              h.update(headers or {})
+              body = None if data is None else json.dumps(data).encode('utf-8')
+              if body is not None:
+                  h['Content-Type'] = 'application/json'
+              for i in range(tries):
+                  req = urllib.request.Request(url, data=body, method=method or ('POST' if body is not None else 'GET'), headers=h)
+                  try:
+                      with urllib.request.urlopen(req, timeout=30) as r:
+                          raw = r.read()
+                          if r.status == 202 and not raw:
+                              raise urllib.error.HTTPError(url, 202, 'challenge', r.headers, None)
+                          return json.loads(raw or b'null')
+                  except urllib.error.HTTPError as e:
+                      if e.code in (429, 500, 502, 503, 504, 202) and i < tries - 1:
+                          time.sleep(5 * (i + 1))
+                          continue
+                      detail = ''
+                      try:
+                          detail = e.read().decode('utf-8', 'ignore')[:300]
+                      except Exception:
+                          pass
+                      raise RuntimeError('HTTP %s da %s %s' % (e.code, url.split('?')[0], detail))
+                  except urllib.error.URLError as e:
+                      if i < tries - 1:
+                          time.sleep(5 * (i + 1))
+                          continue
+                      raise RuntimeError('nessuna risposta da %s (%s)' % (url.split('?')[0], e.reason))
+
+
+          def tm(path, params):
+              url = API + path + '?' + urllib.parse.urlencode(params)
+              body = http(url)
+              time.sleep(GAP)
+              if not isinstance(body, dict) or not body.get('success') or 'data' not in body:
+                  raise RuntimeError('risposta inattesa da Transfermarkt per ' + path)
+              return body['data']
+
+
+          def k_eur(money):
+              try:
+                  v = float((money or {}).get('value') or 0)
+              except (TypeError, ValueError):
+                  return 0
+              return int(round(v / 1000)) if v > 0 else 0
+
+
+          def firebase_config():
+              txt = open('config.js', encoding='utf-8').read()
+              live = '\n'.join(l for l in txt.splitlines() if not l.strip().startswith('//'))
+              def pick(key):
+                  m = re.search(key + r'\s*:\s*["\']([^"\']+)["\']', live)
+                  return m.group(1) if m else ''
+              key, db, project = pick('apiKey'), pick('databaseURL'), pick('projectId')
+              if not db and project:
+                  db = 'https://' + project + '-default-rtdb.europe-west1.firebasedatabase.app'
+              if not key or not db:
+                  stop('in config.js mancano apiKey o databaseURL: controlla di aver tolto i // davanti ai dati di Firebase.')
+              return key, db.rstrip('/')
+
+
+          def login(api_key):
+              owner, _, name = REPO.partition('/')
+              site = 'https://%s.github.io/%s/' % (owner, name) if owner else ''
+              try:
+                  r = http('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + api_key, {'returnSecureToken': True}, headers={'Referer': site} if site else {})
+              except RuntimeError as e:
+                  stop('Firebase non mi fa entrare (%s). Controlla che in Authentication sia attivo l\'accesso «Anonimo».' % e)
+              return r['idToken']
+
+
+          def main():
+              test_db = os.environ.get('TM_DB_URL')
+              if test_db:
+                  db, token = test_db.rstrip('/'), os.environ.get('TM_DB_AUTH', 'test')
+              else:
+                  key, db = firebase_config()
+                  token = login(key)
+              q = lambda: '?auth=' + urllib.parse.quote(token) + os.environ.get('TM_DB_QS', '')
+
+              lst = json.load(open('transfermarkt-id.json', encoding='utf-8'))['p']
+              prev = http(db + '/tmvals.json' + q()) or {}
+              known = {}
+              for k, v in (prev.get('ids') or {}).items():
+                  known[int(str(k).lstrip('p'))] = int(v or 0)
+
+              tm_of, to_find = {}, []
+              for fc, tmid, name, dob in lst:
+                  if tmid:
+                      tm_of[fc] = str(tmid)
+                  elif known.get(fc, 0) > 0:
+                      tm_of[fc] = str(known[fc])
+                  elif fc not in known and name and dob:
+                      to_find.append((fc, name, dob))
+              print('Giocatori: %d, da cercare per nome: %d' % (len(lst), len(to_find)))
+
+              # 1) chi non ha ancora l'ID Transfermarkt: ricerca per nome, si tiene chi ha la stessa data di nascita
+              found, cand = {}, []
+              for fc, name, dob in to_find[:60]:
+                  d = tm('/quick-search', [('term', name), ('page', '1')])
+                  ids = [str(x) for x in ((d or {}).get('result') or {}).get('playerIds', [])][:10]
+                  cand.append((fc, dob, ids))
+              details = {}
+              allc = sorted({i for c in cand for i in c[2]})
+              for i in range(0, len(allc), BATCH):
+                  for p in tm('/players', [('ids[]', x) for x in allc[i:i + BATCH]]) or []:
+                      details[str(p.get('id'))] = p
+              for fc, dob, ids in cand:
+                  hit = next((i for i in ids if ((details.get(i) or {}).get('lifeDates') or {}).get('dateOfBirth') == dob), None)
+                  found[fc] = int(hit) if hit else 0
+                  if hit:
+                      tm_of[fc] = hit
+              print('Trovati con la ricerca: %d' % sum(1 for v in found.values() if v))
+
+              # 2) i valori, a blocchi
+              by_tm = dict(details)
+              need = sorted({v for v in tm_of.values() if v not in by_tm})
+              for i in range(0, len(need), BATCH):
+                  for p in tm('/players', [('ids[]', x) for x in need[i:i + BATCH]]) or []:
+                      by_tm[str(p.get('id'))] = p
+              vals, last = {}, ''
+              for fc, t in tm_of.items():
+                  p = by_tm.get(t)
+                  if not p:
+                      continue
+                  cur = (p.get('marketValueDetails') or {}).get('current') or {}
+                  k = k_eur(cur)
+                  if k > 0:
+                      vals['p%d' % fc] = k
+                      last = max(last, str(cur.get('determined') or '')[:10])
+              n = len(vals)
+              print('Valori ricevuti: %d (aggiornamento più recente di Transfermarkt: %s)' % (n, last or '?'))
+              if n < len(lst) * 0.5:
+                  stop('Transfermarkt ha mandato troppo pochi valori (%d): lascio quelli di prima.' % n)
+
+              ids = {'p%d' % k: v for k, v in known.items()}
+              ids.update({'p%d' % k: v for k, v in found.items()})
+              doc = {'at': {'.sv': 'timestamp'}, 'd': last, 'n': n, 'src': 'github', 'by': 'github', 'v': vals}
+              if ids:
+                  doc['ids'] = ids
+              try:
+                  http(db + '/tmvals.json' + q(), doc, method='PUT')
+              except RuntimeError as e:
+                  stop('il database ha rifiutato i valori (%s). Hai incollato in Firebase le regole nuove (database.rules.json)? Se qualcuno li ha appena aggiornati dal telefono, riprova tra qualche minuto.' % e)
+              os.makedirs('.github', exist_ok=True)
+              with open('.github/valori-transfermarkt.json', 'w', encoding='utf-8') as f:
+                  json.dump({'aggiornato': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime()), 'transfermarkt': last, 'giocatori': n, 'valori_in_migliaia_di_euro': vals}, f, ensure_ascii=False, separators=(',', ':'))
+              print('Fatto: %d valori scritti nel database.' % n)
+
+
+          if __name__ == '__main__':
+              try:
+                  main()
+              except RuntimeError as e:
+                  stop(str(e))
+          PY
+
+      - name: Salva un riepilogo nel repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/valori-transfermarkt.json
+          git diff --cached --quiet || (git commit -m "Valori Transfermarkt aggiornati" && git push)
+

@@ -1,6 +1,6 @@
 # The PP Games: guida
 
-La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (FantaBusta e Nomi, cose, città), le partite aperte e la classifica di sempre.
+La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
 
 ## Se hai già FantaBusta online su GitHub: aggiornamento
 
@@ -9,8 +9,7 @@ Lo fai una volta sola, dal PC.
 ### 1. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Trascina tutti i file della cartella `aggiornamento-the-pp-games`:
-   `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`.
+2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -21,7 +20,7 @@ Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
 2. Apri `database.rules.json` con il Blocco note, copia tutto il testo e incollalo al posto delle regole che ci sono.
 3. Premi **Pubblica**.
 
-Senza questo passaggio la pagina iniziale e Nomi, cose, città dicono che il database ha rifiutato l'operazione.
+Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Senza questo passaggio i giochi nuovi dicono che il database ha rifiutato l'operazione.
 
 ### 3. Prova
 
@@ -53,6 +52,16 @@ Senza questo passaggio la pagina iniziale e Nomi, cose, città dicono che il dat
 6. Doppia iniziale: se ogni parola della risposta comincia con la lettera (con la M: Marco Mengoni), i punti raddoppiano.
 7. Se il telefono di chi organizza si chiude, la partita va avanti lo stesso: la guida passa da sola a un altro giocatore.
 
+## Scovaparole
+
+1. Tutti hanno la stessa griglia di 16 lettere. Si trascina il dito sulle lettere vicine, anche in diagonale, e si stacca alla fine della parola. Ogni lettera si usa una volta per parola.
+2. Valgono le parole del dizionario italiano di almeno 2 lettere, anche plurali e verbi coniugati; gli accenti non contano.
+3. Punteggi alla Ruzzle: ogni lettera ha il suo valore (G, H e Z valgono 8). DL e TL raddoppiano o triplicano la lettera, DP e TP la parola. Le parole lunghe prendono 5 punti in più per ogni lettera oltre la quarta.
+4. **Ognuno per sé:** una parola trovata da più giocatori vale per tutti. **A squadre** (da 2 a 4 squadre, ognuno sceglie la sua in attesa o si mescolano a caso): le parole dei compagni si sommano e ognuna conta una volta.
+5. Si sceglie il numero di manche (1, 3 o 5) e il tempo (1, 2 o 3 minuti). Dopo ogni manche si vedono i punti e le parole migliori che nessuno ha trovato.
+6. **Allenati da solo** fa partire subito una partita senza avversari: non entra in classifica.
+7. Le 1.500 griglie sono già pronte nel file `scovaparole-griglie.json`, con tutte le parole valide di ciascuna. Lo scarica solo il telefono di chi fa partire la partita.
+
 ## Installazione da zero (senza FantaBusta già online)
 
 1. In https://console.firebase.google.com crea un progetto (piano gratuito Spark).
@@ -70,4 +79,5 @@ Senza questo passaggio la pagina iniziale e Nomi, cose, città dicono che il dat
 
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
 - Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche.
+- Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).
 - Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare. Dal telefono non si vedono.

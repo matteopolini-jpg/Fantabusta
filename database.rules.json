@@ -94,13 +94,44 @@
         }
       }
     },
+    "diff": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && !newData.exists() && data.child('state/creator').val() === auth.uid",
+        ".validate": "$code.matches(/^[A-Z]{4}$/)",
+        "state": {
+          ".write": "auth != null && (!data.exists() ? newData.child('creator').val() === auth.uid : (data.child('creator').val() === auth.uid || data.child('names').child(auth.uid).exists()))",
+          ".validate": "newData.hasChildren(['status', 'creator', 'max', 'seq'])"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && root.child('diff').child($code).child('state/status').val() === 'lobby' && (auth.uid === $uid || root.child('diff').child($code).child('state/creator').val() === auth.uid)",
+            ".validate": "!newData.exists() || (newData.hasChildren(['name']) && newData.child('name').isString() && newData.child('name').val().length <= 40)"
+          }
+        },
+        "claims": {
+          "$rk": {
+            "$d": {
+              ".write": "auth != null && !data.exists() && newData.child('u').val() === auth.uid && root.child('diff').child($code).child('state/names').child(auth.uid).exists() && root.child('diff').child($code).child('state/phase').val() === 'play' && $rk === root.child('diff').child($code).child('state/rk').val() && now <= root.child('diff').child($code).child('state/end').val() + 1500",
+              ".validate": "newData.hasChildren(['u']) && $d.matches(/^d[0-9]{1,2}$/)"
+            }
+          }
+        },
+        "ready": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && root.child('diff').child($code).child('state/names').child($uid).exists()",
+            ".validate": "newData.isNumber()"
+          }
+        }
+      }
+    },
     "index": {
       ".read": "auth != null",
       ".indexOn": [
         "createdAt"
       ],
       "$code": {
-        ".write": "auth != null && (!data.exists() ? newData.child('creator').val() === auth.uid : (data.child('creator').val() === auth.uid || root.child('games').child($code).child('state/teams').child(auth.uid).exists() || root.child('ncc').child($code).child('state/names').child(auth.uid).exists() || root.child('scv').child($code).child('state/names').child(auth.uid).exists()))"
+        ".write": "auth != null && (!data.exists() ? newData.child('creator').val() === auth.uid : (data.child('creator').val() === auth.uid || root.child('games').child($code).child('state/teams').child(auth.uid).exists() || root.child('ncc').child($code).child('state/names').child(auth.uid).exists() || root.child('scv').child($code).child('state/names').child(auth.uid).exists() || root.child('diff').child($code).child('state/names').child(auth.uid).exists()))"
       }
     },
     "presence": {
@@ -118,7 +149,7 @@
         "endedAt"
       ],
       "$code": {
-        ".write": "auth != null && !data.exists() && ((newData.child('game').val() === 'fantabusta' && root.child('games').child($code).child('state/status').val() === 'done' && root.child('games').child($code).child('state/teams').child(auth.uid).exists()) || (newData.child('game').val() === 'ncc' && root.child('ncc').child($code).child('state/status').val() === 'done' && root.child('ncc').child($code).child('state/names').child(auth.uid).exists()) || (newData.child('game').val() === 'scv' && root.child('scv').child($code).child('state/status').val() === 'done' && root.child('scv').child($code).child('state/names').child(auth.uid).exists()))",
+        ".write": "auth != null && !data.exists() && ((newData.child('game').val() === 'fantabusta' && root.child('games').child($code).child('state/status').val() === 'done' && root.child('games').child($code).child('state/teams').child(auth.uid).exists()) || (newData.child('game').val() === 'ncc' && root.child('ncc').child($code).child('state/status').val() === 'done' && root.child('ncc').child($code).child('state/names').child(auth.uid).exists()) || (newData.child('game').val() === 'scv' && root.child('scv').child($code).child('state/status').val() === 'done' && root.child('scv').child($code).child('state/names').child(auth.uid).exists()) || (newData.child('game').val() === 'diff' && root.child('diff').child($code).child('state/status').val() === 'done' && root.child('diff').child($code).child('state/names').child(auth.uid).exists()))",
         ".validate": "newData.hasChildren(['game', 'endedAt', 'p'])"
       }
     },

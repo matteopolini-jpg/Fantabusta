@@ -1,6 +1,6 @@
 # The PP Games: guida
 
-La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
+La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Trova le differenze, Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
 
 ## Se hai già FantaBusta online su GitHub: aggiornamento
 
@@ -9,7 +9,7 @@ Lo fai una volta sola, dal PC.
 ### 1. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`.
+2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -61,6 +61,14 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 5. Si sceglie il numero di manche (1, 3 o 5) e il tempo (1, 2 o 3 minuti). Dopo ogni manche si vedono i punti e le parole migliori che nessuno ha trovato.
 6. **Allenati da solo** fa partire subito una partita senza avversari: non entra in classifica.
 7. Le 1.500 griglie sono già pronte nel file `scovaparole-griglie.json`, con tutte le parole valide di ciascuna. Lo scarica solo il telefono di chi fa partire la partita.
+
+## Trova le differenze
+
+1. A ogni manche tutti vedono la stessa coppia di disegni, uno sopra l'altro. I disegni li crea il gioco ogni volta (parco, mare, città, casa), quindi non si ripetono.
+2. Chi tocca per primo una differenza, su uno qualsiasi dei due disegni, prende il punto: compare un cerchio con il suo colore sul telefono di tutti.
+3. Un tocco nel punto sbagliato blocca per 3 secondi.
+4. La manche finisce quando le differenze sono state trovate tutte o quando scade il tempo; poi si vedono anche quelle mancate, tratteggiate.
+5. Chi organizza sceglie le differenze per disegno (5, 7 o 10), le manche (1, 3 o 5) e il tempo massimo (1, 2 o 3 minuti). Ognuno per sé, a squadre (le differenze dei compagni si sommano) o da soli per allenarsi.
 
 ## Installazione da zero (senza FantaBusta già online)
 

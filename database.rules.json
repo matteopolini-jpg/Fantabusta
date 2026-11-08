@@ -41,7 +41,64 @@
               ".validate": false
             }
           }
+        },
+        "vals": {
+          ".write": "auth != null && root.child('games').child($code).child('state/creator').val() === auth.uid && root.child('games').child($code).child('state/status').val() === 'lobby'",
+          ".validate": "newData.hasChildren(['at', 'v']) && newData.child('at').isNumber()",
+          "v": {
+            "$p": {
+              ".validate": "$p.matches(/^p[0-9]+$/) && newData.isNumber() && newData.val() > 0 && newData.val() <= 2000000"
+            }
+          },
+          "d": {
+            ".validate": "newData.isString() && newData.val().length <= 10"
+          },
+          "src": {
+            ".validate": "newData.isString() && newData.val().length <= 12"
+          },
+          "n": {
+            ".validate": "newData.isNumber()"
+          },
+          "at": {
+            ".validate": "newData.isNumber()"
+          },
+          "$other": {
+            ".validate": false
+          }
         }
+      }
+    },
+    "tmvals": {
+      ".read": "auth != null",
+      ".write": "auth != null && newData.exists() && (!data.exists() || data.child('at').val() < now - 120000)",
+      ".validate": "newData.hasChildren(['at', 'v', 'n', 'src']) && newData.child('at').val() === now",
+      "at": {
+        ".validate": "newData.val() === now"
+      },
+      "v": {
+        "$p": {
+          ".validate": "$p.matches(/^p[0-9]+$/) && newData.isNumber() && newData.val() > 0 && newData.val() <= 2000000"
+        }
+      },
+      "ids": {
+        "$p": {
+          ".validate": "$p.matches(/^p[0-9]+$/) && newData.isNumber() && newData.val() >= 0"
+        }
+      },
+      "n": {
+        ".validate": "newData.isNumber() && newData.val() >= 200"
+      },
+      "d": {
+        ".validate": "newData.isString() && newData.val().length <= 10"
+      },
+      "src": {
+        ".validate": "newData.val() === 'app' || newData.val() === 'github'"
+      },
+      "by": {
+        ".validate": "newData.isString() && newData.val().length <= 128"
+      },
+      "$other": {
+        ".validate": false
       }
     },
     "ncc": {

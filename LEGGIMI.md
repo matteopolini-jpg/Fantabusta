@@ -4,36 +4,41 @@ La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi
 
 **Novità di questo aggiornamento**
 
-- Un gioco nuovo: **Giro palla**. Esce una lettera e a turno si dice un calciatore (conta il cognome) o una squadra che comincia così. Chi sbaglia la lettera, ripete un nome già detto o resta senza tempo prende un cartellino e perde una vita.
-- Il gioco conosce più di 30.000 calciatori, di oggi e del passato, più di 350 squadre di club e più di 100 nazionali, e perdona i piccoli errori di battitura. Un nome che non conosce lo decidono gli altri con un voto.
-- Nella classifica di Giro palla il record è il numero più alto di risposte giuste in una partita.
-- Se non avevi ancora caricato l'aggiornamento del Quiz, questo pacchetto contiene anche quello.
+- **FantaBusta** usa i valori di mercato di **Transfermarkt**, in milioni di euro: alla fine vince la rosa che vale di più secondo Transfermarkt.
+- Nella pagina di FantaBusta c'è il tasto **Aggiorna i valori**, che scarica i valori di oggi per tutti. I valori si aggiornano anche da soli ogni lunedì, da GitHub.
+- Le partite già cominciate tengono i valori con cui sono partite; quelle giocate prima di questo aggiornamento tengono i loro punti.
+- Se non avevi ancora caricato Giro palla o il Quiz, questo pacchetto contiene anche quelli.
 
-Le regole del database sono cambiate per Giro palla: dopo aver caricato i file vanno incollate di nuovo in Firebase (punto 2).
+Le regole del database sono cambiate per i valori di FantaBusta: questa volta incollale in Firebase **prima** di caricare i file (punto 1).
 
 ## Se hai già FantaBusta online su GitHub: aggiornamento
 
 Lo fai una volta sola, dal PC.
 
-### 1. Carica i file nuovi
+### 1. Aggiorna le regole del database (obbligatorio)
+
+1. Estrai lo zip.
+2. Apri https://console.firebase.google.com, il tuo progetto, poi **Realtime Database → Regole**.
+3. Apri `database.rules.json` con il Blocco note, copia tutto il testo e incollalo al posto delle regole che ci sono.
+4. Premi **Pubblica**.
+
+Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Senza questo passaggio i giochi nuovi dicono che il database ha rifiutato l'operazione. Le regole nuove vanno bene anche per i file di prima, quindi si possono incollare prima di caricare i file.
+
+### 2. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
 
-### 2. Aggiorna le regole del database (obbligatorio)
-
-1. Apri https://console.firebase.google.com, il tuo progetto, poi **Realtime Database → Regole**.
-2. Apri `database.rules.json` con il Blocco note, copia tutto il testo e incollalo al posto delle regole che ci sono.
-3. Premi **Pubblica**.
-
-Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Senza questo passaggio i giochi nuovi dicono che il database ha rifiutato l'operazione.
+La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBusta. Se GitHub non la prende trascinandola, crea il file a mano: scheda **Actions → New workflow → set up a workflow yourself**, chiama il file `valori-transfermarkt.yml`, incolla tutto il testo di `.github/workflows/valori-transfermarkt.yml` (si apre con il Blocco note) e premi **Commit changes**.
 
 ### 3. Prova
 
 - Aspetta un paio di minuti che GitHub pubblichi, poi apri il sito e ricarica con **Ctrl+F5**. Sul telefono chiudi e riapri la pagina o l'icona.
+- Su GitHub, nella scheda **Actions**, dopo il caricamento parte da solo **Aggiorna valori Transfermarkt**. Se finisce con la spunta verde, FantaBusta ha già i valori di oggi. Se finisce con la X rossa, aprilo: l'ultima riga spiega cosa non va.
+- In FantaBusta, sotto **Valori dei giocatori**, c'è la data dei valori. Il tasto **Aggiorna i valori** li riscarica quando vuoi.
 - Il vecchio link del sito ora apre The PP Games. I link alle partite di FantaBusta mandati prima continuano a funzionare.
 - Le partite di FantaBusta già cominciate continuano normalmente.
 
@@ -62,9 +67,18 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ## La classifica
 
 - In ogni partita prendi 1 punto per ogni avversario che hai battuto. A parità contano le vittorie, poi chi ha giocato meno partite. In Giro palla conta l'ordine di uscita: chi resta in campo per ultimo arriva primo.
-- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta, il punteggio più alto a Nomi, cose, città, la vincita più alta al Milionario del Quiz, il numero più alto di risposte giuste in una partita di Giro palla.
+- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta (in milioni di euro), il punteggio più alto a Nomi, cose, città, la vincita più alta al Milionario del Quiz, il numero più alto di risposte giuste in una partita di Giro palla.
 - Una partita entra in classifica appena finisce. Le partite di FantaBusta finite prima di questo aggiornamento entrano quando uno dei partecipanti apre la pagina di FantaBusta.
 - Per togliere una partita di prova: in Firebase apri **Realtime Database → Dati → results** e cancella la voce con il codice di quella partita.
+
+## FantaBusta: i valori dei giocatori
+
+- Ogni giocatore vale il suo valore di mercato su Transfermarkt, in milioni di euro. Alla fine si sommano i valori dei titolari: vince la rosa che vale di più. Le offerte all'asta restano in fantamilioni (FM).
+- I giocatori che su Transfermarkt non hanno una valutazione non vengono estratti.
+- **Aggiorna i valori**, nella pagina di FantaBusta, scarica da Transfermarkt i valori di oggi e li salva nel database per tutti. Ci vuole circa mezzo minuto; dopo un aggiornamento il tasto si ferma per qualche minuto.
+- Ogni lunedì mattina presto i valori si aggiornano da soli, da GitHub. Per aggiornarli subito da lì: scheda **Actions** del repository → **Aggiorna valori Transfermarkt** → **Run workflow**. Se il telefono dice che Transfermarkt non risponde, il tasto **Apri GitHub** porta a quella pagina.
+- Una partita usa i valori del momento in cui parte l'asta: un aggiornamento durante la partita non la cambia. Le partite giocate prima di questo aggiornamento tengono i loro punti.
+- Transfermarkt non ha un servizio pubblico ufficiale per questi dati: il gioco legge gli stessi che usa il suo sito. Se un giorno Transfermarkt cambia qualcosa, l'aggiornamento può smettere di funzionare: i valori restano gli ultimi scaricati.
 
 ## Nomi, cose, città
 
@@ -188,5 +202,6 @@ L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni tele
 
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
 - Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, messaggi della chat di chi non gioca o a nome di altri, e voti doppi o di chi non è in partita.
+- I valori di FantaBusta li può aggiornare chiunque giochi, al massimo ogni due minuti, e le regole accettano solo un elenco completo di valori. L'aggiornamento da GitHub entra nel database come un nuovo utente anonimo ogni volta: in Firebase, sotto **Authentication → Users**, è normale vederne uno in più ogni settimana.
 - Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).
 - Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare (anche le risposte giuste del Quiz). Dal telefono non si vedono. In Giro palla è il telefono di chi risponde a controllare il nome: tra amici funziona, ma non è una gara con l'arbitro.

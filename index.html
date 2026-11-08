@@ -149,6 +149,9 @@ p { margin: 0; }
 .figurina .pname.m { font-size: 40px; } .figurina .pname.s { font-size: 34px; } .figurina .pname.xs { font-size: 28px; }
 .figurina .fullname { font-size: 14px; color: #5d5646; grid-column: 1 / -1; }
 .figurina .shirt { grid-row: 2 / 4; grid-column: 2; align-self: center; width: 70px; height: 70px; }
+.figurina .medal { grid-row: 2 / 4; grid-column: 2; align-self: center; width: 76px; height: 76px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe08a, var(--gold) 55%, #b37f16); color: var(--ink); display: grid; place-items: center; align-content: center; box-shadow: 0 4px 0 rgba(0,0,0,0.18), inset 0 0 0 3px rgba(255,255,255,0.35); }
+.figurina .medal .mv { font-family: var(--display); font-weight: 900; font-size: 34px; line-height: 0.9; }
+.figurina .medal .ml { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
 .figurina .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 6px; font-size: 14px; color: #3d382c; }
 .roles { display: inline-flex; gap: 4px; flex-wrap: wrap; }
 .role { display: inline-grid; place-items: center; min-width: 30px; height: 24px; padding: 0 6px; border-radius: 6px; font-family: var(--display); font-weight: 900; font-size: 16px; color: #fff; letter-spacing: 0.02em; }
@@ -157,6 +160,13 @@ p { margin: 0; }
 .role.E, .role.M, .role.C { background: var(--r-cen); }
 .role.T, .role.W { background: var(--r-tre); }
 .role.A, .role.Pc { background: var(--r-att); }
+.role.g-por { background: var(--r-por); } .role.g-dif { background: var(--r-dif); } .role.g-cen { background: var(--r-cen); } .role.g-tre { background: var(--r-tre); } .role.g-att { background: var(--r-att); }
+.leagues { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.lg { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 10px 10px; min-height: 46px; border-radius: 10px; border: 1px solid var(--line); background: var(--night); text-align: left; font-weight: 700; font-size: 14px; }
+.lg .lgn { line-height: 1.15; overflow-wrap: anywhere; }
+.lg .lgc { font-size: 12px; color: var(--muted); font-weight: 600; }
+.lg[aria-pressed="true"] { background: var(--chalk); color: var(--ink); border-color: transparent; }
+.lg[aria-pressed="true"] .lgc { color: #5d5646; }
 .figurina.enter { animation: deal 520ms cubic-bezier(.2,.9,.25,1.15) both; }
 @keyframes deal { from { transform: translateY(-26px) rotate(-7deg) scale(0.94); opacity: 0; } to { transform: rotate(-1.2deg); opacity: 1; } }
 
@@ -283,6 +293,6 @@ details.rules ol { margin: 10px 0 0; padding-left: 20px; display: flex; flex-dir
 <main id="app" data-screen=""><div class="big-msg"><div class="mast"><div class="logo">Fanta<span>Busta</span></div></div><p class="muted">Caricamento…</p></div></main>
 <noscript><p style="padding:16px">FantaBusta ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="app.js?v=4dc8638e"></script>
+<script type="module" src="app.js?v=1694eb04"></script>
 </body>
 </html>

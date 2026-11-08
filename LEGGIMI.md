@@ -1,88 +1,73 @@
-# FantaBusta: come metterlo online gratis con Firebase
+# The PP Games: guida
 
-Nella cartella trovi:
+La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (FantaBusta e Nomi, cose, città), le partite aperte e la classifica di sempre.
 
-- `public/`: il gioco (pagina, codice, icone, elenco dei 500 giocatori)
-- `database.rules.json`: le regole di sicurezza del database
-- `firebase.json`: dice a Firebase cosa pubblicare
+## Se hai già FantaBusta online su GitHub: aggiornamento
 
-Per i passaggi 1–4 serve un PC. Li fai una volta sola.
+Lo fai una volta sola, dal PC.
 
-## 1. Crea il progetto
+### 1. Carica i file nuovi
 
-1. Vai su https://console.firebase.google.com e accedi con il tuo account Google.
-2. Premi **Crea un progetto** e dagli un nome, per esempio `fantabusta`. Google Analytics non serve: puoi disattivarlo.
-3. Il piano gratuito (Spark) è quello predefinito e non chiede la carta di credito.
+1. Apri il repository su GitHub, premi **Add file → Upload files**.
+2. Trascina tutti i file della cartella `aggiornamento-the-pp-games`:
+   `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`.
+3. Premi **Commit changes**.
 
-## 2. Crea il database
+Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
 
-1. Nel menu a sinistra apri **Build → Realtime Database** e premi **Crea database**.
-2. Come posizione scegli **Belgio (europe-west1)**.
-3. Alla domanda sulle regole scegli **Avvia in modalità bloccata**. Quelle giuste le carichi al punto 4.
+### 2. Aggiorna le regole del database (obbligatorio)
 
-## 3. Attiva l'accesso anonimo
+1. Apri https://console.firebase.google.com, il tuo progetto, poi **Realtime Database → Regole**.
+2. Apri `database.rules.json` con il Blocco note, copia tutto il testo e incollalo al posto delle regole che ci sono.
+3. Premi **Pubblica**.
 
-Apri **Build → Authentication**, premi **Inizia**, vai nella scheda **Metodo di accesso**, scegli **Anonimo**, attivalo e salva.
-Serve a riconoscere ogni telefono senza chiedere account o password.
+Senza questo passaggio la pagina iniziale e Nomi, cose, città dicono che il database ha rifiutato l'operazione.
 
-## 4. Pubblica il gioco
+### 3. Prova
 
-Installa Node.js (versione LTS) da https://nodejs.org. Poi apri il terminale (su Windows il Prompt dei comandi) e scrivi:
+- Aspetta un paio di minuti che GitHub pubblichi, poi apri il sito e ricarica con **Ctrl+F5**. Sul telefono chiudi e riapri la pagina o l'icona.
+- Il vecchio link del sito ora apre The PP Games. I link alle partite di FantaBusta mandati prima continuano a funzionare.
+- Le partite di FantaBusta già cominciate continuano normalmente.
 
-```
-npm install -g firebase-tools
-firebase login
-cd PERCORSO\DELLA\CARTELLA\fantabusta
-firebase use --add
-firebase deploy
-```
+## Il profilo
 
-- Con `firebase use --add` scegli il progetto creato al punto 1; come alias scrivi `default`.
-- `firebase deploy` pubblica il gioco e carica le regole del database.
-- Alla fine compare una riga **Hosting URL**, per esempio `https://fantabusta-1234.web.app`: è l'indirizzo del gioco.
+- Ognuno scrive il nome una volta nella pagina iniziale. Resta salvato su quel telefono e vale per tutti i giochi e per la classifica.
+- **Cambiare telefono:** sul telefono vecchio premi **Collega un altro telefono** e compare un codice di 6 caratteri, valido 10 minuti. Sul telefono nuovo premi **Hai già giocato con un altro telefono? Collegalo** e scrivilo. Da quel momento i due telefoni hanno lo stesso nome e la stessa classifica.
+- Su iPhone l'icona sulla schermata Home e Safari contano come due telefoni diversi: collegali con il codice.
+- Se un telefono è perso e non può creare il codice, si gioca con un nome nuovo; la classifica del vecchio profilo resta separata.
 
-## 5. Giocare
+## La classifica
 
-- Apri l'indirizzo dal telefono, scrivi il tuo nome e crea la partita.
-- Con **Copia il link** mandi agli amici (per esempio su WhatsApp) il link diretto alla partita. In alternativa trovano la partita nell'elenco **Partite aperte**.
-- Consiglio: ognuno aggiunga il gioco alla schermata Home e usi sempre quell'icona.
-  - iPhone: apri il link in Safari, poi **Condividi → Aggiungi alla schermata Home**.
-  - Android: apri il link in Chrome, poi **⋮ → Aggiungi a schermata Home** (o **Installa app**).
-  Ogni telefono viene riconosciuto in automatico: se a metà partita qualcuno passa a un altro browser, il gioco non lo riconosce più come la stessa squadra.
-- Non serve che un telefono resti acceso per tutti: il primo giocatore collegato fa avanzare l'asta e, se chiude l'app, subentra un altro in automatico.
-- Se per 6 giri di fila nessuno risponde (per esempio tutti hanno chiuso l'app), l'asta va in pausa. Quando tornate, premete **Riprendi l'asta**. Con **Chiudi qui** si calcola subito la classifica e i posti vuoti valgono 0.
+- In ogni partita prendi 1 punto per ogni avversario che hai battuto. A parità contano le vittorie, poi chi ha giocato meno partite.
+- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta, il punteggio più alto a Nomi, cose, città.
+- Una partita entra in classifica appena finisce. Le partite di FantaBusta finite prima di questo aggiornamento entrano quando uno dei partecipanti apre la pagina di FantaBusta.
+- Per togliere una partita di prova: in Firebase apri **Realtime Database → Dati → results** e cancella la voce con il codice di quella partita.
 
-## Limiti del piano gratuito
+## Nomi, cose, città
 
-- Realtime Database: 100 collegamenti contemporanei, 1 GB di dati salvati, 10 GB scaricati al mese.
-- Hosting: 10 GB di spazio e 360 MB di traffico al giorno.
+1. Chi organizza sceglie le categorie (anche sue), quanti giocatori al massimo, come esce la lettera (a caso, la sceglie lui o a turno), le manche (3, 5, 8 o 10) e il tempo di ogni manche (da 1 a 3 minuti).
+2. A ogni manche si scrive una parola per categoria che comincia con la lettera uscita.
+3. Chi completa tutte le categorie può premere **STOP**: agli altri restano 10 secondi.
+4. Poi si vedono le risposte di tutti. Una parola bocciata con **Non vale** dalla maggioranza degli altri giocatori fa 0.
+5. Punti: 10 se la parola l'hai scritta solo tu, 5 se un altro ha scritto la stessa parola o una molto simile (singolare e plurale, una lettera sbagliata, il cognome con o senza il nome). Le parole che non cominciano con la lettera fanno 0.
+6. Doppia iniziale: se ogni parola della risposta comincia con la lettera (con la M: Marco Mengoni), i punti raddoppiano.
+7. Se il telefono di chi organizza si chiude, la partita va avanti lo stesso: la guida passa da sola a un altro giocatore.
 
-Per partite tra amici si resta molto sotto questi limiti. Se si superano, Firebase non addebita niente: il servizio si ferma fino al periodo successivo.
+## Installazione da zero (senza FantaBusta già online)
 
-## Se qualcosa non va
+1. In https://console.firebase.google.com crea un progetto (piano gratuito Spark).
+2. **Realtime Database → Crea database**, posizione **Belgio (europe-west1)**, modalità bloccata. Poi in **Regole** incolla `database.rules.json` e premi **Pubblica**.
+3. **Authentication → Inizia → Metodo di accesso → Anonimo**: attivalo.
+4. **Impostazioni progetto → Le tue app → `</>`**: registra un'app web e copia i suoi dati in `public/config.js`, togliendo i `//`. Controlla che ci sia `databaseURL` (lo trovi in alto nella pagina del Realtime Database).
+5. Su GitHub crea un repository e carica tutti i file della cartella `public`. In **Settings → Pages** scegli il ramo `main` e la cartella principale.
 
-- **«Accesso anonimo non attivo»**: rifai il punto 3.
-- **«Non riesco a leggere le partite»**: controlla che il Realtime Database esista e che in **Realtime Database → Regole** ci siano le regole del file `database.rules.json`. Se non ci sono, rifai `firebase deploy`.
-- **Database creato fuori dal Belgio**: apri `public/config.js` e togli i `//`. Poi incolla i dati della tua app web: li trovi in **Impostazioni progetto → Le tue app → aggiungi app web `</>`**. Controlla che ci sia anche `databaseURL` (lo trovi in alto nella pagina del Realtime Database). Poi rifai `firebase deploy`.
+## Logo e icona
 
-## Strada senza terminale (alternativa)
+- Il logo che compare all'apertura è il file `logo.png`; le icone per la schermata Home sono `icon-192.png`, `icon-512.png`, `icon-maskable.png` e `apple-touch-icon.png`. Per cambiarli basta sostituire questi file su GitHub.
+- Dopo aver cambiato l'icona, chi aveva già aggiunto il sito alla Home lo toglie e lo riaggiunge.
 
-1. Regole: in **Realtime Database → Regole** incolla il contenuto di `database.rules.json` e premi **Pubblica**.
-2. Configurazione: registra un'app web (**Impostazioni progetto → Le tue app → `</>`**) e copia i suoi dati in `public/config.js`, togliendo i `//`.
-3. Carica la cartella `public` su un hosting statico gratuito, per esempio Cloudflare Pages o Netlify: trascini la cartella nel browser.
-4. In **Authentication → Impostazioni → Domini autorizzati** aggiungi l'indirizzo del sito.
+## Limiti e sicurezza
 
-## Sicurezza: cosa aspettarsi
-
-- Le regole del database rifiutano buste fuori tempo, buste a nome di altri e buste cambiate dopo averle sigillate.
-- Buste e valori dei giocatori sono nascosti nell'app. Però il gioco non ha un server suo che li custodisca: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciarli. Dal telefono non si vedono.
-
-## Da dove vengono i dati
-
-- Giocatori, squadre, ruoli ed età vengono dal database di EA SPORTS FC 27, aggiornato all'11 ottobre 2026.
-- I ruoli stile Mantra sono ricavati dalle posizioni del gioco.
-- Il valore segreto di ogni giocatore va da 1 a 100: per il 60% conta il livello attuale (valutazione FC 27), per il 40% un valore di mercato stimato, che premia i più giovani.
-
-## Modificare il gioco
-
-Il codice leggibile è nella cartella `sorgenti/`. `public/app.js` è la versione compressa che gira davvero. Per ricostruirla dopo una modifica: entra in `sorgenti`, poi `npm install` e `npm run build`. Infine rifai `firebase deploy` dalla cartella principale.
+- Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
+- Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche.
+- Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare. Dal telefono non si vedono.

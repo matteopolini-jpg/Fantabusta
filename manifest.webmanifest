@@ -1,14 +1,14 @@
 {
-  "name": "FantaBusta",
-  "short_name": "FantaBusta",
-  "description": "L'asta a buste chiuse dei 500 migliori giocatori d'Europa.",
+  "name": "The PP Games",
+  "short_name": "The PP Games",
+  "description": "Giochi da fare insieme, ognuno con il suo telefono.",
   "lang": "it",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b1510",
-  "theme_color": "#0b1510",
+  "background_color": "#d9e4ed",
+  "theme_color": "#d9e4ed",
   "icons": [
     {
       "src": "icon-192.png",
@@ -21,7 +21,7 @@
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

@@ -1,14 +1,15 @@
 # The PP Games: guida
 
-La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Quiz, Parola segreta, Trova le differenze, Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
+La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Giro palla, Quiz, Parola segreta, Trova le differenze, Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
 
 **Novità di questo aggiornamento**
 
-- Un gioco nuovo: il **Quiz**, con due modi di giocare: **Milionario** (15 domande fino a un milione, con 50:50 e aiuto del pubblico) e **Corsa dei cavalli**.
-- Più di 800 domande su sette materie, dalle elementari alle superiori, più la matematica creata al momento.
-- Nella classifica del Quiz il record è la vincita più alta al Milionario.
+- Un gioco nuovo: **Giro palla**. Esce una lettera e a turno si dice un calciatore (conta il cognome) o una squadra che comincia così. Chi sbaglia la lettera, ripete un nome già detto o resta senza tempo prende un cartellino e perde una vita.
+- Il gioco conosce più di 30.000 calciatori, di oggi e del passato, più di 350 squadre di club e più di 100 nazionali, e perdona i piccoli errori di battitura. Un nome che non conosce lo decidono gli altri con un voto.
+- Nella classifica di Giro palla il record è il numero più alto di risposte giuste in una partita.
+- Se non avevi ancora caricato l'aggiornamento del Quiz, questo pacchetto contiene anche quello.
 
-Le regole del database sono cambiate per il Quiz: dopo aver caricato i file vanno incollate di nuovo in Firebase (punto 2).
+Le regole del database sono cambiate per Giro palla: dopo aver caricato i file vanno incollate di nuovo in Firebase (punto 2).
 
 ## Se hai già FantaBusta online su GitHub: aggiornamento
 
@@ -17,7 +18,7 @@ Lo fai una volta sola, dal PC.
 ### 1. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -39,7 +40,7 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ## Suoni e musica
 
 - In alto a destra in ogni gioco c'è il tasto con l'altoparlante. A ogni tocco cambia: **musica ed effetti**, **solo effetti**, **niente**. La scelta resta salvata su quel telefono.
-- Gli effetti accompagnano i momenti del gioco: l'apertura, il conto alla rovescia, la risposta giusta o sbagliata, lo STOP, il ticchettio degli ultimi secondi, la fine del tempo, la vittoria. In FantaBusta ci sono il fischio d'inizio, le buste che si aprono e il triplice fischio finale.
+- Gli effetti accompagnano i momenti del gioco: l'apertura, il conto alla rovescia, la risposta giusta o sbagliata, lo STOP, il ticchettio degli ultimi secondi, la fine del tempo, la vittoria. In FantaBusta ci sono il fischio d'inizio, le buste che si aprono e il triplice fischio finale; in Giro palla il tabellone che gira, il fischio dell'arbitro a ogni cartellino e il pubblico alla fine.
 - I suoni sono creati dal telefono stesso, senza file da scaricare.
 - Il telefono fa partire l'audio solo dopo il primo tocco sulla pagina: fino ad allora tutto tace. Dall'icona sulla schermata Home di Android spesso parte da subito.
 - Se non senti niente, controlla il tasto in alto e il volume del telefono; su iPhone anche l'interruttore laterale del silenzioso.
@@ -60,8 +61,8 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 
 ## La classifica
 
-- In ogni partita prendi 1 punto per ogni avversario che hai battuto. A parità contano le vittorie, poi chi ha giocato meno partite.
-- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta, il punteggio più alto a Nomi, cose, città, la vincita più alta al Milionario del Quiz.
+- In ogni partita prendi 1 punto per ogni avversario che hai battuto. A parità contano le vittorie, poi chi ha giocato meno partite. In Giro palla conta l'ordine di uscita: chi resta in campo per ultimo arriva primo.
+- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta, il punteggio più alto a Nomi, cose, città, la vincita più alta al Milionario del Quiz, il numero più alto di risposte giuste in una partita di Giro palla.
 - Una partita entra in classifica appena finisce. Le partite di FantaBusta finite prima di questo aggiornamento entrano quando uno dei partecipanti apre la pagina di FantaBusta.
 - Per togliere una partita di prova: in Firebase apri **Realtime Database → Dati → results** e cancella la voce con il codice di quella partita.
 
@@ -148,6 +149,28 @@ Tutti rispondono alla stessa domanda, ognuno sul suo telefono: si tocca una risp
 
 Le domande della partita le prepara il telefono di chi la fa partire, evitando quelle uscite di recente su quel telefono. La matematica cambia numeri ogni volta.
 
+## Giro palla
+
+Chi crea la partita sceglie:
+
+- **Cosa vale:** calciatori e squadre, solo calciatori oppure solo squadre (club e nazionali).
+- **Il tempo per rispondere:** 10, 15, 20, 25 o 30 secondi.
+- **Le vite:** 1, 2 o 3. Con una vita il primo errore è un rosso diretto; con due arriva prima un giallo e poi il rosso; con tre, due gialli e poi il rosso.
+- Ognuno per sé, a squadre (da 2 a 4) o da soli per allenarsi (da soli non entra in classifica), e quanti giocatori al massimo.
+
+1. Il tabellone gira ed esce una lettera. Chi è di turno scrive un calciatore o una squadra che comincia con quella lettera e preme **Gioca** (o Invio). Le lettere più difficili (Q, X, Y) non escono.
+2. Per i calciatori conta il **cognome**: con la M vale Maldini o Paolo Maldini, non Mario Balotelli. Basta anche solo il cognome. Chi è famoso con un nome solo vale anche con quello: Pelé con la P, Ronaldinho con la R.
+3. Per le squadre conta il nome: Milan, Manchester United, Real Madrid con la R. Valgono i soprannomi più comuni (Juve, Inter, Barça). Le nazionali si scrivono in italiano (Olanda, Messico).
+4. Risposta giusta: il turno passa al prossimo, con la stessa lettera.
+5. Cartellino, e una vita in meno, a chi scrive un nome che non comincia con la lettera, a chi ripete un nome già detto in questa partita (anche se era uscito con un'altra lettera) e a chi resta senza tempo. Poi esce una lettera nuova e riparte chi ha sbagliato. Sotto il cartellino il gioco suggerisce qualche nome che si poteva dire.
+6. Il gioco perdona i piccoli errori di battitura (Dibala per Dybala). Se scrivi un nome che non conosce, gli altri votano **Vale** o **Non vale**: a parità vale.
+7. Finite le vite si esce. Vince chi resta in campo per ultimo. Il numero accanto a ogni nome conta le risposte giuste.
+8. **A squadre** risponde chi vuole della squadra di turno e le vite sono in comune.
+9. **Da soli** si va avanti finché si sbaglia: conta quante risposte giuste dai. **Allenati ancora** ne fa partire subito un'altra.
+10. Alla fine, **Tutti i giri** mostra le risposte e il cartellino di ogni giro.
+
+L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni telefono lo scarica quando apre il gioco.
+
 ## Installazione da zero (senza FantaBusta già online)
 
 1. In https://console.firebase.google.com crea un progetto (piano gratuito Spark).
@@ -164,6 +187,6 @@ Le domande della partita le prepara il telefono di chi la fa partire, evitando q
 ## Limiti e sicurezza
 
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
-- Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, e messaggi della chat di chi non gioca o a nome di altri.
+- Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, messaggi della chat di chi non gioca o a nome di altri, e voti doppi o di chi non è in partita.
 - Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).
-- Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare (anche le risposte giuste del Quiz). Dal telefono non si vedono.
+- Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare (anche le risposte giuste del Quiz). Dal telefono non si vedono. In Giro palla è il telefono di chi risponde a controllare il nome: tra amici funziona, ma non è una gara con l'arbitro.

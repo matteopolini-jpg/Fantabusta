@@ -1,16 +1,14 @@
 # The PP Games: guida
 
-La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Parola segreta, Trova le differenze, Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
+La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi trovi il profilo con il tuo nome, i giochi (Quiz, Parola segreta, Trova le differenze, Scovaparole, Nomi, cose, città e FantaBusta), le partite aperte e la classifica di sempre.
 
 **Novità di questo aggiornamento**
 
-- Un gioco nuovo: **Parola segreta**, con due modi di giocare (lettere e vite, catena).
-- Suoni e musiche in tutti i giochi, ognuno per il suo momento, con un tasto per spegnerli.
-- Una chat con le faccine in ogni partita.
-- FantaBusta ha una grafica nuova, più colorata e da stadio.
-- Trova le differenze ha 13 ambienti invece di 4.
+- Un gioco nuovo: il **Quiz**, con due modi di giocare: **Milionario** (15 domande fino a un milione, con 50:50 e aiuto del pubblico) e **Corsa dei cavalli**.
+- Più di 800 domande su sette materie, dalle elementari alle superiori, più la matematica creata al momento.
+- Nella classifica del Quiz il record è la vincita più alta al Milionario.
 
-Le regole del database sono cambiate, per la chat e per Parola segreta: dopo aver caricato i file vanno incollate di nuovo in Firebase (punto 2).
+Le regole del database sono cambiate per il Quiz: dopo aver caricato i file vanno incollate di nuovo in Firebase (punto 2).
 
 ## Se hai già FantaBusta online su GitHub: aggiornamento
 
@@ -19,7 +17,7 @@ Lo fai una volta sola, dal PC.
 ### 1. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Estrai lo zip, apri la cartella e trascina **tutti i file che contiene** (non la cartella): `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -63,7 +61,7 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ## La classifica
 
 - In ogni partita prendi 1 punto per ogni avversario che hai battuto. A parità contano le vittorie, poi chi ha giocato meno partite.
-- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta, il punteggio più alto a Nomi, cose, città.
+- C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta, il punteggio più alto a Nomi, cose, città, la vincita più alta al Milionario del Quiz.
 - Una partita entra in classifica appena finisce. Le partite di FantaBusta finite prima di questo aggiornamento entrano quando uno dei partecipanti apre la pagina di FantaBusta.
 - Per togliere una partita di prova: in Firebase apri **Realtime Database → Dati → results** e cancella la voce con il codice di quella partita.
 
@@ -122,6 +120,34 @@ Chi crea la partita sceglie:
 4. Dopo un tentativo sbagliato bisogna aspettare un attimo prima di riprovare.
 5. Quando la sceglie un giocatore, scrive da 4 a 7 parole, oppure usa una catena pronta.
 
+## Quiz
+
+Chi crea la partita sceglie:
+
+- **Il gioco:** «Milionario» oppure «Corsa dei cavalli».
+- **Il livello:** elementari, medie, superiori, oppure **a salire** (si comincia dalle elementari e si arriva alle superiori).
+- **Le materie**, una o più: geografia, storia, italiano, matematica, scienze e natura, arte e letteratura, intrattenimento (cinema, cartoni, musica, TV, fumetti, videogiochi), sport e tempo libero. Le domande girano tra le materie scelte, mai la stessa due volte di fila.
+- Ognuno per sé, a squadre o da soli per allenarsi (da soli non entra in classifica), il tempo per rispondere e, nella corsa, la distanza del traguardo.
+
+Tutti rispondono alla stessa domanda, ognuno sul suo telefono: si tocca una risposta, che si illumina d'oro, e si conferma con il tasto arancione in basso oppure toccandola di nuovo: a quel punto diventa arancione e non si cambia più. Se scade il tempo con una risposta scelta ma non confermata, vale quella. Quando hanno risposto tutti si passa subito alla risposta giusta, che si accende di verde.
+
+**Milionario**
+
+1. Quindici domande, da 100 € a un milione. Chi sbaglia esce e si porta a casa la cifra al sicuro: 1.000 € dopo la 5ª domanda giusta, 32.000 € dopo la 10ª.
+2. **Mi ritiro** (va confermato) fa uscire tenendo quello che si è già vinto. Se il tempo finisce senza risposta, ci si ritira con quello che si ha.
+3. Due aiuti, una volta sola ciascuno: **50:50** toglie due risposte sbagliate; **il pubblico** mostra le percentuali di voto della sala, che nelle domande più difficili ogni tanto sbaglia.
+4. Dopo ogni risposta si vede la scala dei premi con il punto in cui si trova ognuno. Vince chi porta a casa di più.
+
+**Corsa dei cavalli**
+
+1. Ognuno ha il suo cavallo. Risposta giusta: 3 passi avanti. Sbagliata: 2 passi indietro (non si va sotto la partenza). Con **Passo** o senza risposta si resta fermi.
+2. Vince chi arriva per primo al traguardo (15, 24 o 36 passi). Qui non ci sono aiuti.
+3. La corsa dura al massimo 40 domande: se nessuno arriva, vince chi è più avanti.
+
+**A squadre** i compagni rispondono insieme: vale la prima risposta confermata da qualcuno della squadra, e aiuti, vincite e passi sono in comune.
+
+Le domande della partita le prepara il telefono di chi la fa partire, evitando quelle uscite di recente su quel telefono. La matematica cambia numeri ogni volta.
+
 ## Installazione da zero (senza FantaBusta già online)
 
 1. In https://console.firebase.google.com crea un progetto (piano gratuito Spark).
@@ -140,4 +166,4 @@ Chi crea la partita sceglie:
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
 - Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, e messaggi della chat di chi non gioca o a nome di altri.
 - Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).
-- Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare. Dal telefono non si vedono.
+- Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare (anche le risposte giuste del Quiz). Dal telefono non si vedono.

@@ -4,12 +4,12 @@ La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi
 
 **Novità di questo aggiornamento**
 
-- **FantaBusta** usa i valori di mercato di **Transfermarkt**, in milioni di euro: alla fine vince la rosa che vale di più secondo Transfermarkt.
-- Nella pagina di FantaBusta c'è il tasto **Aggiorna i valori**, che scarica i valori di oggi per tutti. I valori si aggiornano anche da soli ogni lunedì, da GitHub.
-- Le partite già cominciate tengono i valori con cui sono partite; quelle giocate prima di questo aggiornamento tengono i loro punti.
-- Se non avevi ancora caricato Giro palla o il Quiz, questo pacchetto contiene anche quelli.
+- **FantaBusta:** se il giocatore estratto può andare a una squadra sola, perché le altre quel ruolo l'hanno già completo, va a lei subito per 1 FM, senza busta. Chi resta da solo su un ruolo prende il primo che esce e non può aspettare il campione per prenderlo a 1.
+- **Pagina iniziale:** accanto a ogni partita c'è la **×** per toglierla dalla lista (sotto, cosa fa).
+- **Nomi, cose, città:** in revisione si toccano i punti di una risposta e si correggono a 5, 10 o 20.
+- **Amministrazione:** un pannello che vedi solo tu, con gli utenti, il loro ultimo accesso, e i tasti per rinominarli, unirli e cancellarli (sotto, come si attiva).
 
-Le regole del database sono cambiate per i valori di FantaBusta: questa volta incollale in Firebase **prima** di caricare i file (punto 1).
+Le regole del database sono cambiate: incollale in Firebase prima di caricare i file (punto 1).
 
 ## Se hai già FantaBusta online su GitHub: aggiornamento
 
@@ -27,7 +27,7 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ### 2. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -39,8 +39,7 @@ La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBus
 - Aspetta un paio di minuti che GitHub pubblichi, poi apri il sito e ricarica con **Ctrl+F5**. Sul telefono chiudi e riapri la pagina o l'icona.
 - Su GitHub, nella scheda **Actions**, dopo il caricamento parte da solo **Aggiorna valori Transfermarkt**. Se finisce con la spunta verde, FantaBusta ha già i valori di oggi. Se finisce con la X rossa, aprilo: l'ultima riga spiega cosa non va.
 - In FantaBusta, sotto **Valori dei giocatori**, c'è la data dei valori. Il tasto **Aggiorna i valori** li riscarica quando vuoi.
-- Il vecchio link del sito ora apre The PP Games. I link alle partite di FantaBusta mandati prima continuano a funzionare.
-- Le partite di FantaBusta già cominciate continuano normalmente.
+- Apri `admin.html` (l'indirizzo del sito con `admin.html` in fondo) dal tuo telefono o dal tuo computer e premi **Diventa amministratore**: vedi la sezione **Amministrazione** qui sotto.
 
 ## Suoni e musica
 
@@ -57,6 +56,30 @@ La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBus
 - Quando arriva un messaggio compare per qualche secondo in alto e le faccine volano sullo schermo, senza bloccare il gioco.
 - Scrivono solo i giocatori della partita. I messaggi restano nella partita e spariscono quando chi l'ha creata la elimina.
 
+## Le partite nella pagina iniziale
+
+Accanto a ogni partita aperta o in corso c'è la **×**. Cosa fa dipende da chi la preme, e prima chiede conferma:
+
+- **chi ha creato la partita** la elimina per tutti;
+- **chi ci sta giocando** la toglie dalla lista per tutti, ma la partita resta e chi la sta giocando la può finire;
+- **gli altri** la nascondono solo sul proprio telefono;
+- **l'amministratore** elimina qualsiasi partita per tutti.
+
+Lo stesso vale nelle liste della pagina di FantaBusta.
+
+## Amministrazione
+
+Un pannello per chi gestisce The PP Games, all'indirizzo del sito con `admin.html` in fondo (per esempio `https://tuonome.github.io/Fantabusta/admin.html`). Agli altri non compare il link e la pagina dice che è solo per l'amministratore; le regole del database non lasciano fare a nessun altro queste operazioni.
+
+- **La prima volta:** apri la pagina e premi **Diventa amministratore**. Lo diventa il primo che lo preme, quindi fallo subito dopo aver caricato l'aggiornamento. Vale per il tuo profilo, cioè per tutti i telefoni che hai collegato con il codice. Da quel momento nella pagina iniziale, sotto il tuo nome, c'è il tasto **Amministrazione**.
+- **Utenti:** dal più recente, con l'ultimo accesso e la pagina aperta (per esempio «oggi alle 8:02, Quiz»), le partite giocate, le vittorie e quanti telefoni usa. Gli accessi si segnano da questo aggiornamento in poi; per chi non è ancora tornato si vede la data dell'ultima partita.
+- Tocca un utente per:
+  - **Rinomina**: cambia il nome che vedono tutti, anche in classifica.
+  - **Unisci a un altro**: quando la stessa persona compare due volte (per esempio ha cambiato telefono senza collegarlo). Partite e telefoni passano all'utente scelto, che tiene il suo nome.
+  - **Rendi amministratore** o **Togli amministratore**. L'ultimo amministratore non si può togliere.
+  - **Cancella**: l'utente sparisce dall'elenco e dalla classifica insieme alle sue partite; chi aveva giocato contro di lui perde i punti presi in quelle partite. Se riapre i giochi da un suo telefono, riparte da zero. Non puoi cancellare te stesso.
+- **Partite non finite:** tutte, di chiunque, con la **×** per eliminarle. Se ce ne sono ferme da più di un giorno, **Eliminale** le toglie tutte insieme.
+
 ## Il profilo
 
 - Ognuno scrive il nome una volta nella pagina iniziale. Resta salvato su quel telefono e vale per tutti i giochi e per la classifica.
@@ -69,11 +92,12 @@ La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBus
 - In ogni partita prendi 1 punto per ogni avversario che hai battuto. A parità contano le vittorie, poi chi ha giocato meno partite. In Giro palla conta l'ordine di uscita: chi resta in campo per ultimo arriva primo.
 - C'è la classifica generale e quella di ogni gioco, per sempre, per quest'anno o per questo mese. Per ogni gioco c'è anche il record: la rosa che vale di più a FantaBusta (in milioni di euro), il punteggio più alto a Nomi, cose, città, la vincita più alta al Milionario del Quiz, il numero più alto di risposte giuste in una partita di Giro palla.
 - Una partita entra in classifica appena finisce. Le partite di FantaBusta finite prima di questo aggiornamento entrano quando uno dei partecipanti apre la pagina di FantaBusta.
-- Per togliere una partita di prova: in Firebase apri **Realtime Database → Dati → results** e cancella la voce con il codice di quella partita.
+- Per togliere un giocatore di prova con le sue partite usa **Cancella** nel pannello di amministrazione. Per togliere una sola partita di prova: in Firebase apri **Realtime Database → Dati → results** e cancella la voce con il codice di quella partita.
 
-## FantaBusta: i valori dei giocatori
+## FantaBusta: valori dei giocatori e asta
 
 - Ogni giocatore vale il suo valore di mercato su Transfermarkt, in milioni di euro. Alla fine si sommano i valori dei titolari: vince la rosa che vale di più. Le offerte all'asta restano in fantamilioni (FM).
+- Se il giocatore estratto può andare a una squadra sola, perché le altre quel ruolo l'hanno già completo, non si apre la busta: va a lei subito per 1 FM («senza busta»). Così chi resta da solo su un ruolo prende il primo che esce.
 - I giocatori che su Transfermarkt non hanno una valutazione non vengono estratti.
 - **Aggiorna i valori**, nella pagina di FantaBusta, scarica da Transfermarkt i valori di oggi e li salva nel database per tutti. Ci vuole circa mezzo minuto; dopo un aggiornamento il tasto si ferma per qualche minuto.
 - Ogni lunedì mattina presto i valori si aggiornano da soli, da GitHub. Per aggiornarli subito da lì: scheda **Actions** del repository → **Aggiorna valori Transfermarkt** → **Run workflow**. Se il telefono dice che Transfermarkt non risponde, il tasto **Apri GitHub** porta a quella pagina.
@@ -88,7 +112,8 @@ La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBus
 4. Poi si vedono le risposte di tutti. Una parola bocciata con **Non vale** dalla maggioranza degli altri giocatori fa 0.
 5. Punti: 10 se la parola l'hai scritta solo tu, 5 se un altro ha scritto la stessa parola o una molto simile (singolare e plurale, una lettera sbagliata, il cognome con o senza il nome). Le parole che non cominciano con la lettera fanno 0.
 6. Doppia iniziale: se ogni parola della risposta comincia con la lettera (con la M: Marco Mengoni), i punti raddoppiano.
-7. Se il telefono di chi organizza si chiude, la partita va avanti lo stesso: la guida passa da sola a un altro giocatore.
+7. Se il gioco sbaglia il conto, per esempio prende per uguali due parole diverse o non vede una doppia iniziale, in revisione toccate i punti della risposta (sono sottolineati) e scegliete **5**, **10** o **20**; **Come prima** rimette quelli del gioco. Può correggere chiunque, anche le proprie risposte, e accanto si vede chi l'ha fatto; vale l'ultima correzione. Le parole bocciate dalla maggioranza restano a 0.
+8. Se il telefono di chi organizza si chiude, la partita va avanti lo stesso: la guida passa da sola a un altro giocatore.
 
 ## Scovaparole
 
@@ -202,6 +227,7 @@ L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni tele
 
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
 - Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, messaggi della chat di chi non gioca o a nome di altri, e voti doppi o di chi non è in partita.
+- Gli ultimi accessi (quando e in quale pagina) li legge solo l'amministratore; nessun altro dato del telefono viene salvato.
 - I valori di FantaBusta li può aggiornare chiunque giochi, al massimo ogni due minuti, e le regole accettano solo un elenco completo di valori. L'aggiornamento da GitHub entra nel database come un nuovo utente anonimo ogni volta: in Firebase, sotto **Authentication → Users**, è normale vederne uno in più ogni settimana.
 - Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).
 - Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare (anche le risposte giuste del Quiz). Dal telefono non si vedono. In Giro palla è il telefono di chi risponde a controllare il nome: tra amici funziona, ma non è una gara con l'arbitro.

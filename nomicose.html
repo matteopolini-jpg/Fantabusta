@@ -159,6 +159,16 @@ h2.hand { font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--ink)
 .tag { font: 600 12px Figtree; color: var(--pencil); }
 .pts { font-size: 24px; font-weight: 700; color: var(--red); min-width: 34px; text-align: right; }
 .rrow.k-U .pts, .rrow.k-S .pts { text-decoration: underline double; text-underline-offset: 3px; }
+button.pts { background: transparent; border: 0; padding: 0 2px; cursor: pointer; font-family: inherit; line-height: 1.1; border-bottom: 2px dotted rgba(200, 55, 42, .45); min-height: 36px; }
+button.pts[aria-expanded=true] { border-bottom-style: solid; }
+.rrow.k-f .pts, .rrow.k-t .pts, .rrow.k-w .pts { border: 2px solid var(--red); border-radius: 50% 46% 52% 44%; padding: 0 5px; text-align: center; }
+.lr-a.k-f b, .lr-a.k-t b, .lr-a.k-w b { border: 1.5px solid var(--red); border-radius: 50%; padding: 0 4px; }
+.rrow.open { border-bottom-style: solid; }
+.fixrow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 0 10px 30px; border-bottom: 1px dashed var(--rule); }
+.fixrow .tiny { color: var(--pencil); font-weight: 600; }
+.fixrow button { min-width: 48px; min-height: 40px; font-size: 22px; font-weight: 700; color: var(--red); background: rgba(255, 255, 255, .85); border: 1.5px solid rgba(200, 55, 42, .5); border-radius: 10px; cursor: pointer; padding: 2px 8px 0; }
+.fixrow button[aria-pressed=true] { background: var(--red); color: #fff; border-color: var(--red); }
+.fixrow button.auto { font: 600 13px Figtree; min-width: 0; color: var(--ink); border-color: var(--ink-soft); padding: 6px 10px; }
 .veto, .veto-sp { width: 82px; flex: 0 0 auto; }
 .veto { font: 600 13px Figtree; color: var(--red); background: rgba(255, 255, 255, .7); border: 1.5px solid rgba(200, 55, 42, .5); border-radius: 8px; padding: 6px 4px; min-height: 36px; cursor: pointer; }
 .veto[aria-pressed=true] { background: var(--red); color: #fff; border-color: var(--red); }
@@ -227,6 +237,6 @@ h2.hand { font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--ink)
 <main id="app" data-screen=""><div class="msg"><p>Un attimo…</p></div></main>
 <noscript><p style="padding:16px">Il gioco ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="nomicose.js?v=bdcd4076"></script>
+<script type="module" src="nomicose.js?v=3bd6bcfe"></script>
 </body>
 </html>

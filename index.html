@@ -98,6 +98,16 @@ h1, h2, p { margin: 0; }
 .box-env { width: 58px; height: 44px; flex: 0 0 auto; position: relative; rotate: -4deg; }
 .box-env svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 3px 0 rgba(6, 16, 46, .35)); }
 .g-badge { font: 700 11.5px Figtree; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex: 0 0 auto; }
+.list { display: grid; gap: 8px; }
+.item { display: flex; align-items: center; gap: 8px; padding: 10px 4px 10px 12px; background: #fff; border-radius: 12px; box-shadow: 0 2px 0 var(--line); }
+.item .grow { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.it-top { display: flex; align-items: center; gap: 8px; }
+.it-top .code { font: 800 16px Figtree; letter-spacing: .08em; }
+.item.confirm { flex-wrap: wrap; padding-right: 12px; box-shadow: inset 0 0 0 1.5px #b3261e; }
+.item.confirm .row { margin-left: auto; }
+.x-btn { flex: 0 0 auto; width: 40px; height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--navy-2); font: 400 26px/1 Figtree, sans-serif; cursor: pointer; }
+.x-btn:hover { background: rgba(21, 37, 58, .07); color: var(--navy); }
+.btn.danger { color: #b3261e; border-color: #b3261e; }
 .g-ncc { background: #fbfcf9; color: #2140a6; box-shadow: inset 0 0 0 1px #c5d2de; }
 .g-fantabusta { background: #1fae55; color: #fff; }
 .g-scv { background: #f2c443; color: #2b241d; }
@@ -172,6 +182,6 @@ table.board { width: 100%; border-collapse: collapse; font-size: 15px; backgroun
 <main id="app"></main>
 <noscript><p style="padding:16px">The PP Games ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="hub.js?v=f8a456e9"></script>
+<script type="module" src="hub.js?v=93fff1cb"></script>
 </body>
 </html>

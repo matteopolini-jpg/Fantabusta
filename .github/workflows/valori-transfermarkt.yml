@@ -27,6 +27,8 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Scarica i valori da Transfermarkt e li scrive nel database
+        env:
+          CHIAVE_PPGAMES: ${{ secrets.CHIAVE_PPGAMES }}
         run: |
           python3 - <<'PY'
           # Aggiorna i valori di mercato Transfermarkt di FantaBusta e li scrive nel database Firebase del sito.
@@ -114,20 +116,38 @@ jobs:
                   r = http('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + api_key, {'returnSecureToken': True}, headers={'Referer': site} if site else {})
               except RuntimeError as e:
                   stop('Firebase non mi fa entrare (%s). Controlla che in Authentication sia attivo l\'accesso «Anonimo».' % e)
-              return r['idToken']
+              return r['idToken'], r.get('localId', '')
+
+
+          GATE_HELP = ('il database chiede il codice del gruppo. Nel pannello di amministrazione, sezione «Codice del gruppo», '
+                       'copia la chiave per GitHub e aggiungila al repository come segreto: Settings → Secrets and variables → Actions → '
+                       'New repository secret, nome CHIAVE_PPGAMES.')
 
 
           def main():
               test_db = os.environ.get('TM_DB_URL')
               if test_db:
-                  db, token = test_db.rstrip('/'), os.environ.get('TM_DB_AUTH', 'test')
+                  db, token, uid = test_db.rstrip('/'), os.environ.get('TM_DB_AUTH', 'test'), os.environ.get('TM_DB_UID', 'github-test')
               else:
                   key, db = firebase_config()
-                  token = login(key)
+                  token, uid = login(key)
               q = lambda: '?auth=' + urllib.parse.quote(token) + os.environ.get('TM_DB_QS', '')
 
+              # Codice del gruppo: con la chiave (segreto CHIAVE_PPGAMES) GitHub entra come un telefono del gruppo
+              bot = os.environ.get('CHIAVE_PPGAMES', '').strip()
+              joined = False
+              if bot and uid:
+                  try:
+                      http(db + '/members/' + uid + '.json' + q(), {'at': {'.sv': 'timestamp'}, 'bot': bot, 'name': 'GitHub'}, method='PUT')
+                      joined = True
+                  except RuntimeError as e:
+                      stop('il database non accetta la chiave CHIAVE_PPGAMES (%s). Copiala di nuovo dal pannello di amministrazione: forse è stata cambiata.' % e)
+
               lst = json.load(open('transfermarkt-id.json', encoding='utf-8'))['p']
-              prev = http(db + '/tmvals.json' + q()) or {}
+              try:
+                  prev = http(db + '/tmvals.json' + q()) or {}
+              except RuntimeError as e:
+                  stop((GATE_HELP if not bot and ('401' in str(e) or '403' in str(e) or 'ermission' in str(e)) else 'non riesco a leggere il database (%s).' % e))
               known = {}
               for k, v in (prev.get('ids') or {}).items():
                   known[int(str(k).lstrip('p'))] = int(v or 0)
@@ -190,6 +210,11 @@ jobs:
                   http(db + '/tmvals.json' + q(), doc, method='PUT')
               except RuntimeError as e:
                   stop('il database ha rifiutato i valori (%s). Hai incollato in Firebase le regole nuove (database.rules.json)? Se qualcuno li ha appena aggiornati dal telefono, riprova tra qualche minuto.' % e)
+              if joined:
+                  try:
+                      http(db + '/members/' + uid + '.json' + q(), method='DELETE')   # GitHub esce: non resta nell'elenco
+                  except RuntimeError:
+                      pass
               os.makedirs('.github', exist_ok=True)
               with open('.github/valori-transfermarkt.json', 'w', encoding='utf-8') as f:
                   json.dump({'aggiornato': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime()), 'transfermarkt': last, 'giocatori': n, 'valori_in_migliaia_di_euro': vals}, f, ensure_ascii=False, separators=(',', ':'))

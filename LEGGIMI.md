@@ -4,8 +4,8 @@ La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi
 
 **Novità di questo aggiornamento**
 
-- **Tempo di gioco:** nel pannello di amministrazione vedi quanto ha giocato ognuno, in tutto e per gioco, oggi, in una settimana, in un mese o da sempre (sotto, **Tempo di gioco**).
-- **Codice del gruppo:** dal pannello puoi attivare un codice. Da quel momento i telefoni nuovi entrano solo se lo conoscono o se aprono il tuo link d'invito. Chi ha già un profilo resta dentro senza fare niente (sotto, **Codice del gruppo**).
+- **Inviti con le notifiche:** nella sala d'attesa di ogni gioco, **Invita** apre l'elenco del gruppo. Chi scegli riceve una notifica sul telefono e, toccandola, entra nella partita. Ognuno attiva le notifiche una volta, dalla pagina iniziale.
+- Per spedire le notifiche serve un piccolo servizio gratuito su Cloudflare, senza carta di credito: lo prepari una volta sola dal pannello di amministrazione (sotto, **Inviti con le notifiche**). Finché non è pronto, **Invita** manda il link come prima.
 
 Le regole del database sono cambiate: incollale in Firebase prima di caricare i file (punto 1).
 
@@ -25,7 +25,7 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ### 2. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `sw.js`, `notifiche-worker.js`, `badge.png`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -37,12 +37,12 @@ La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBus
 - Aspetta un paio di minuti che GitHub pubblichi, poi apri il sito e ricarica con **Ctrl+F5**. Sul telefono chiudi e riapri la pagina o l'icona.
 - Su GitHub, nella scheda **Actions**, dopo il caricamento parte da solo **Aggiorna valori Transfermarkt**. Se finisce con la spunta verde, FantaBusta ha già i valori di oggi. Se finisce con la X rossa, aprilo: l'ultima riga spiega cosa non va.
 - In FantaBusta, sotto **Valori dei giocatori**, c'è la data dei valori. Il tasto **Aggiorna i valori** li riscarica quando vuoi.
-- Apri il pannello di amministrazione (tasto **Amministrazione** nella pagina iniziale, oppure l'indirizzo del sito con `admin.html` in fondo). Se non l'hai ancora fatto, premi **Diventa amministratore**. Ci trovi **Tempo di gioco**, che si riempie dalle prossime partite, e **Codice del gruppo**, spento finché non lo attivi tu.
+- Apri il pannello di amministrazione (tasto **Amministrazione** nella pagina iniziale, oppure l'indirizzo del sito con `admin.html` in fondo). Se non l'hai ancora fatto, premi **Diventa amministratore**. Nella sezione **Notifiche degli inviti** prepara il servizio che spedisce le notifiche: vedi **Inviti con le notifiche** qui sotto.
 
 ## Suoni e musica
 
 - In alto a destra in ogni gioco c'è il tasto con l'altoparlante. A ogni tocco cambia: **musica ed effetti**, **solo effetti**, **niente**. La scelta resta salvata su quel telefono.
-- Gli effetti accompagnano i momenti del gioco: l'apertura, il conto alla rovescia, la risposta giusta o sbagliata, lo STOP, il ticchettio degli ultimi secondi, la fine del tempo, la vittoria. In FantaBusta ci sono il fischio d'inizio, le buste che si aprono e il triplice fischio finale; in Giro palla il tabellone che gira, il fischio dell'arbitro a ogni cartellino e il pubblico alla fine.
+- Gli effetti accompagnano i momenti del gioco: l'apertura, il conto alla rovescia, la risposta giusta o sbagliata, lo STOP, il ticchettio degli ultimi secondi, la fine del tempo, la vittoria. In FantaBusta ci sono il fischio d'inizio, le buste che si aprono e il triplice fischio finale; in Giro palla il tabellone che gira, il fischio dell'arbitro a ogni cartellino e il pubblico alla fine. Un invito che arriva mentre il sito è aperto suona un campanello.
 - I suoni sono creati dal telefono stesso, senza file da scaricare.
 - Il telefono fa partire l'audio solo dopo il primo tocco sulla pagina: fino ad allora tutto tace. Dall'icona sulla schermata Home di Android spesso parte da subito.
 - Se non senti niente, controlla il tasto in alto e il volume del telefono; su iPhone anche l'interruttore laterale del silenzioso.
@@ -107,6 +107,31 @@ Anche l'aggiornamento automatico dei valori di FantaBusta deve entrare: gli serv
 4. Prova: **Actions → Aggiorna valori Transfermarkt → Run workflow**. Deve finire con la spunta verde.
 
 Se cambi il codice, la chiave resta valida. **Fai una chiave nuova** serve solo se pensi che l'abbia vista qualcuno: poi va cambiata anche su GitHub. Il tasto **Aggiorna i valori** dentro FantaBusta funziona sempre, anche senza la chiave.
+
+## Inviti con le notifiche
+
+Con le notifiche, chi crea una partita può chiamare gli amici: a loro arriva un avviso sul telefono, anche a sito chiuso.
+
+- **Attivarle:** nella pagina iniziale, sotto il tuo nome, premi **Attiva** in **Inviti sul telefono** e poi **Consenti** quando il telefono lo chiede. Si fa una volta per telefono. **Disattiva** le spegne.
+- **Su Android** funzionano anche dal browser (Chrome).
+- **Su iPhone** arrivano solo se il sito è aggiunto alla schermata Home e aperto da lì (in Safari: Condividi, poi **Aggiungi alla schermata Home**). L'icona conta come un telefono nuovo: collegala al tuo profilo con il codice di 6 caratteri (vedi **Il profilo**), poi attiva le notifiche da lì.
+- **Invitare:** nella sala d'attesa premi **Invita**. In alto ci sono le persone del gruppo che hanno le notifiche: scegline una o più (o **Tutti**) e premi **Manda l'invito**. Sotto c'è chi non le ha: a loro manda il link con **Manda il link**, come prima.
+- **Chi riceve l'invito** vede una notifica come «Matteo ti invita al Quiz»: toccandola entra nella sala d'attesa della partita. Se ha il sito aperto, sente un campanello e compare un avviso con **Entra**.
+- Un invito ogni 15 secondi a testa, solo per partite ancora in attesa. Un telefono spento per più di un quarto d'ora non riceve gli inviti arrivati nel frattempo: ormai sarebbero vecchi.
+
+### Preparare il servizio (amministratore, una volta sola)
+
+Le notifiche le spedisce un piccolo servizio su Cloudflare, con il piano gratuito: non chiede la carta di credito e permette 100.000 inviti al giorno. Meglio farlo dal computer.
+
+1. Nel pannello di amministrazione, sezione **Notifiche degli inviti**, premi **Prepara le notifiche**: si creano le chiavi e compaiono i passi.
+2. Crea un account gratuito su https://dash.cloudflare.com/sign-up e conferma l'email.
+3. Dal menu a sinistra apri **Workers & Pages** (a volte è sotto **Compute**), premi **Create**, scegli **Hello World** (o **Create Worker**), chiamalo per esempio `ppgames-inviti` e premi **Deploy**.
+4. Premi **Edit code**, cancella tutto il codice che c'è, incolla quello copiato con **Copia il codice** del pannello (è anche nel file `notifiche-worker.js`) e premi **Deploy**.
+5. Torna al worker, apri **Settings** e, sotto **Variables and Secrets**, premi **Add**: tipo **Secret**, nome `CHIAVE_NOTIFICHE`, come valore incolla quello copiato con **Copia la configurazione**, poi **Deploy**. La configurazione contiene la chiave segreta delle notifiche: incollala solo lì.
+6. Copia l'indirizzo del worker (in alto nella sua pagina, finisce con `.workers.dev`), incollalo nel pannello e premi **Collega**. Se qualcosa non va, il pannello dice quale passo rifare.
+7. Attiva le notifiche anche sul tuo telefono e premi **Manda una prova a me**.
+
+In **Altre impostazioni** puoi copiare di nuovo codice e configurazione, cambiare l'indirizzo, spegnere le notifiche (Invita torna a mandare il link) o fare chiavi nuove. Le chiavi nuove servono solo se pensi che qualcuno abbia visto la configurazione: dopo vanno copiate di nuovo su Cloudflare e il servizio va ricollegato; i telefoni si aggiornano da soli.
 
 ## Il profilo
 
@@ -256,6 +281,7 @@ L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni tele
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
 - Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, messaggi della chat di chi non gioca o a nome di altri, e voti doppi o di chi non è in partita.
 - Gli ultimi accessi (quando e in quale pagina) e il tempo di gioco li legge solo l'amministratore; nessun altro dato del telefono viene salvato.
+- Per le notifiche ogni telefono salva l'indirizzo che il suo browser usa per riceverle. Lo leggono i telefoni del gruppo, perché il servizio inviti lo usa con l'accesso di chi invita; da solo non serve a mandare niente senza la chiave segreta, che è solo su Cloudflare e nel database, dove la legge solo l'amministratore. Il servizio rispetta le regole del database, codice del gruppo compreso, e scrive solo il nome di chi invita, il gioco e il codice della partita.
 - Senza codice del gruppo chiunque abbia l'indirizzo può giocare. Con il codice attivo le regole del database non fanno leggere né scrivere niente a un telefono che non è entrato: le pagine si aprono, perché il sito su GitHub è pubblico, ma restano vuote. Il codice è valido finché nessuno lo passa in giro: se succede, cambialo.
 - I valori di FantaBusta li può aggiornare chiunque giochi, al massimo ogni due minuti, e le regole accettano solo un elenco completo di valori. L'aggiornamento da GitHub entra nel database come un nuovo utente anonimo ogni volta: in Firebase, sotto **Authentication → Users**, è normale vederne uno in più ogni settimana. Con il codice del gruppo attivo entra con la chiave `CHIAVE_PPGAMES` e alla fine si toglie da solo dall'elenco dei telefoni del gruppo.
 - Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).

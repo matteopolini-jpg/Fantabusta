@@ -566,6 +566,74 @@
           }
         }
       }
+    },
+    "push": {
+      ".read": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists())",
+      "$uid": {
+        ".write": "auth != null && ((auth.uid === $uid && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists())) || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
+        "$sid": {
+          ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && !newData.exists()",
+          ".validate": "$sid.matches(/^[A-Za-z0-9_-]+$/) && $sid.length >= 8 && $sid.length <= 40 && newData.hasChildren(['e', 'p', 'a', 'at'])",
+          "e": {
+            ".validate": "newData.isString() && newData.val().length <= 900 && newData.val().matches(/^https:\\/\\/[^ ]+$/)"
+          },
+          "p": {
+            ".validate": "newData.isString() && newData.val().length >= 86 && newData.val().length <= 88 && newData.val().matches(/^[A-Za-z0-9_-]+$/)"
+          },
+          "a": {
+            ".validate": "newData.isString() && newData.val().length >= 16 && newData.val().length <= 30 && newData.val().matches(/^[A-Za-z0-9_-]+$/)"
+          },
+          "at": {
+            ".validate": "newData.val() === now"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "pushcfg": {
+      ".read": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists())",
+      ".write": "auth != null && (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true))",
+      "url": {
+        ".validate": "newData.isString() && newData.val().length <= 200 && newData.val().matches(/^https:\\/\\/[^ ]+$/)"
+      },
+      "key": {
+        ".validate": "newData.isString() && newData.val().length === 87 && newData.val().matches(/^[A-Za-z0-9_-]+$/)"
+      },
+      "at": {
+        ".validate": "newData.val() === now"
+      },
+      "$other": {
+        ".validate": false
+      }
+    },
+    "pushsec": {
+      ".read": "auth != null && (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true))",
+      ".write": "auth != null && (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true))",
+      ".validate": "newData.hasChildren(['x', 'y', 'd'])",
+      "x": {
+        ".validate": "newData.isString() && newData.val().length === 43"
+      },
+      "y": {
+        ".validate": "newData.isString() && newData.val().length === 43"
+      },
+      "d": {
+        ".validate": "newData.isString() && newData.val().length === 43"
+      },
+      "at": {
+        ".validate": "newData.val() === now"
+      },
+      "$other": {
+        ".validate": false
+      }
+    },
+    "pushlog": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && ((auth.uid === $uid && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && newData.exists()) || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
+        ".validate": "newData.isNumber() && newData.val() === now && (!data.exists() || data.val() <= now - 15000)"
+      }
     }
   }
 }

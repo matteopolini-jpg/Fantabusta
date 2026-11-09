@@ -4,10 +4,8 @@ La pagina iniziale del sito adesso è **The PP Games**. Si apre con il logo, poi
 
 **Novità di questo aggiornamento**
 
-- **FantaBusta:** se il giocatore estratto può andare a una squadra sola, perché le altre quel ruolo l'hanno già completo, va a lei subito per 1 FM, senza busta. Chi resta da solo su un ruolo prende il primo che esce e non può aspettare il campione per prenderlo a 1.
-- **Pagina iniziale:** accanto a ogni partita c'è la **×** per toglierla dalla lista (sotto, cosa fa).
-- **Nomi, cose, città:** in revisione si toccano i punti di una risposta e si correggono a 5, 10 o 20.
-- **Amministrazione:** un pannello che vedi solo tu, con gli utenti, il loro ultimo accesso, e i tasti per rinominarli, unirli e cancellarli (sotto, come si attiva).
+- **Tempo di gioco:** nel pannello di amministrazione vedi quanto ha giocato ognuno, in tutto e per gioco, oggi, in una settimana, in un mese o da sempre (sotto, **Tempo di gioco**).
+- **Codice del gruppo:** dal pannello puoi attivare un codice. Da quel momento i telefoni nuovi entrano solo se lo conoscono o se aprono il tuo link d'invito. Chi ha già un profilo resta dentro senza fare niente (sotto, **Codice del gruppo**).
 
 Le regole del database sono cambiate: incollale in Firebase prima di caricare i file (punto 1).
 
@@ -32,14 +30,14 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
 
-La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBusta. Se GitHub non la prende trascinandola, crea il file a mano: scheda **Actions → New workflow → set up a workflow yourself**, chiama il file `valori-transfermarkt.yml`, incolla tutto il testo di `.github/workflows/valori-transfermarkt.yml` (si apre con il Blocco note) e premi **Commit changes**.
+La cartella `.github` contiene l'aggiornamento automatico dei valori di FantaBusta. GitHub spesso non la prende trascinandola, perché il nome comincia con il punto. Se il file c'è già nel repository, aprilo su GitHub (`.github/workflows/valori-transfermarkt.yml`), premi la matita, cancella tutto il testo, incolla quello del file nuovo (si apre con il Blocco note) e premi **Commit changes**. Se non c'è, crealo: scheda **Actions → New workflow → set up a workflow yourself**, chiama il file `valori-transfermarkt.yml`, incolla il testo e premi **Commit changes**.
 
 ### 3. Prova
 
 - Aspetta un paio di minuti che GitHub pubblichi, poi apri il sito e ricarica con **Ctrl+F5**. Sul telefono chiudi e riapri la pagina o l'icona.
 - Su GitHub, nella scheda **Actions**, dopo il caricamento parte da solo **Aggiorna valori Transfermarkt**. Se finisce con la spunta verde, FantaBusta ha già i valori di oggi. Se finisce con la X rossa, aprilo: l'ultima riga spiega cosa non va.
 - In FantaBusta, sotto **Valori dei giocatori**, c'è la data dei valori. Il tasto **Aggiorna i valori** li riscarica quando vuoi.
-- Apri `admin.html` (l'indirizzo del sito con `admin.html` in fondo) dal tuo telefono o dal tuo computer e premi **Diventa amministratore**: vedi la sezione **Amministrazione** qui sotto.
+- Apri il pannello di amministrazione (tasto **Amministrazione** nella pagina iniziale, oppure l'indirizzo del sito con `admin.html` in fondo). Se non l'hai ancora fatto, premi **Diventa amministratore**. Ci trovi **Tempo di gioco**, che si riempie dalle prossime partite, e **Codice del gruppo**, spento finché non lo attivi tu.
 
 ## Suoni e musica
 
@@ -72,13 +70,43 @@ Lo stesso vale nelle liste della pagina di FantaBusta.
 Un pannello per chi gestisce The PP Games, all'indirizzo del sito con `admin.html` in fondo (per esempio `https://tuonome.github.io/Fantabusta/admin.html`). Agli altri non compare il link e la pagina dice che è solo per l'amministratore; le regole del database non lasciano fare a nessun altro queste operazioni.
 
 - **La prima volta:** apri la pagina e premi **Diventa amministratore**. Lo diventa il primo che lo preme, quindi fallo subito dopo aver caricato l'aggiornamento. Vale per il tuo profilo, cioè per tutti i telefoni che hai collegato con il codice. Da quel momento nella pagina iniziale, sotto il tuo nome, c'è il tasto **Amministrazione**.
-- **Utenti:** dal più recente, con l'ultimo accesso e la pagina aperta (per esempio «oggi alle 8:02, Quiz»), le partite giocate, le vittorie e quanti telefoni usa. Gli accessi si segnano da questo aggiornamento in poi; per chi non è ancora tornato si vede la data dell'ultima partita.
+- **Utenti:** dal più recente, con l'ultimo accesso e la pagina aperta (per esempio «oggi alle 8:02, Quiz»), le partite giocate, le vittorie, il tempo di gioco e quanti telefoni usa. Gli accessi si segnano da quando c'è il pannello; per chi non è più tornato si vede la data dell'ultima partita.
 - Tocca un utente per:
   - **Rinomina**: cambia il nome che vedono tutti, anche in classifica.
   - **Unisci a un altro**: quando la stessa persona compare due volte (per esempio ha cambiato telefono senza collegarlo). Partite e telefoni passano all'utente scelto, che tiene il suo nome.
   - **Rendi amministratore** o **Togli amministratore**. L'ultimo amministratore non si può togliere.
   - **Cancella**: l'utente sparisce dall'elenco e dalla classifica insieme alle sue partite; chi aveva giocato contro di lui perde i punti presi in quelle partite. Se riapre i giochi da un suo telefono, riparte da zero. Non puoi cancellare te stesso.
 - **Partite non finite:** tutte, di chiunque, con la **×** per eliminarle. Se ce ne sono ferme da più di un giorno, **Eliminale** le toglie tutte insieme.
+
+### Tempo di gioco
+
+- In alto scegli **Giorno**, **Settimana**, **Mese** o **Sempre**; con le frecce ‹ › vai ai periodi prima.
+- Vedi il totale, i giochi dal più giocato e le persone, ognuna con una barra divisa per gioco. Tocca una persona per vedere i suoi giorni (o i mesi, con **Sempre**); passando sopra una colonna, o toccandola, leggi i minuti. **Mostra i numeri** li elenca.
+- Conta il tempo con un gioco aperto e in uso. Un telefono lasciato acceso senza toccarlo smette di contare dopo cinque minuti; la pagina iniziale e il pannello non contano.
+- Si conta da questo aggiornamento in poi: il tempo di prima non c'è. Lo vede solo l'amministratore.
+
+## Codice del gruppo
+
+Senza codice, chiunque abbia l'indirizzo del sito può entrare e giocare. Con il codice entrano solo i telefoni che lo conoscono o che aprono il tuo link d'invito.
+
+- **Attivarlo:** nel pannello di amministrazione, sezione **Codice del gruppo**, tieni il codice proposto o scrivine uno tuo (almeno 6 caratteri; **Un altro** ne propone un altro), poi premi **Attiva il codice**. Chi ha già un profilo o ha già giocato resta dentro senza fare niente.
+- **Farlo arrivare:** premi **Copia il link d'invito** e mandalo nel gruppo: chi lo apre entra senza scrivere niente. Oppure **Copia il codice**: si scrive nella pagina di benvenuto.
+- **Un telefono nuovo** vede **Benvenuto in The PP Games** con la casella per il codice. Se è il telefono nuovo di chi giocava già, tocca **Hai già giocato con un altro telefono?** e scrive il codice di 6 caratteri creato sul telefono vecchio (vedi **Il profilo**): entra con il suo nome e la sua classifica.
+- **Cambia il codice:** il codice vecchio e il link vecchio smettono di valere. Chi è già entrato resta dentro.
+- **Togli il codice:** il sito torna aperto a tutti.
+- **Chiudere fuori qualcuno:** cambia il codice, poi cancellalo dal pannello (**Cancella** sul suo nome).
+- Sotto il codice si legge quanti telefoni sono entrati con il codice o con il link.
+
+### L'aggiornamento dei valori da GitHub, con il codice attivo
+
+Anche l'aggiornamento automatico dei valori di FantaBusta deve entrare: gli serve una chiave, da mettere su GitHub una volta sola.
+
+1. Controlla di avere il file `.github/workflows/valori-transfermarkt.yml` di questo aggiornamento (in **Se hai già FantaBusta online su GitHub**, punto 2, come si sostituisce).
+2. Nel pannello, sotto il codice, premi **Copia la chiave**.
+3. Su GitHub apri il repository, poi **Settings → Secrets and variables → Actions → New repository secret** (il tasto **Apri GitHub** del pannello porta lì). Come nome scrivi `CHIAVE_PPGAMES`, come valore incolla la chiave e premi **Add secret**.
+4. Prova: **Actions → Aggiorna valori Transfermarkt → Run workflow**. Deve finire con la spunta verde.
+
+Se cambi il codice, la chiave resta valida. **Fai una chiave nuova** serve solo se pensi che l'abbia vista qualcuno: poi va cambiata anche su GitHub. Il tasto **Aggiorna i valori** dentro FantaBusta funziona sempre, anche senza la chiave.
 
 ## Il profilo
 
@@ -227,7 +255,8 @@ L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni tele
 
 - Piano gratuito: fino a 100 telefoni collegati insieme. Per gruppi di amici basta e avanza; se si supera, Firebase non addebita niente.
 - Le regole del database rifiutano risposte e buste fuori tempo, a nome di altri o dopo la chiusura della manche, messaggi della chat di chi non gioca o a nome di altri, e voti doppi o di chi non è in partita.
-- Gli ultimi accessi (quando e in quale pagina) li legge solo l'amministratore; nessun altro dato del telefono viene salvato.
-- I valori di FantaBusta li può aggiornare chiunque giochi, al massimo ogni due minuti, e le regole accettano solo un elenco completo di valori. L'aggiornamento da GitHub entra nel database come un nuovo utente anonimo ogni volta: in Firebase, sotto **Authentication → Users**, è normale vederne uno in più ogni settimana.
+- Gli ultimi accessi (quando e in quale pagina) e il tempo di gioco li legge solo l'amministratore; nessun altro dato del telefono viene salvato.
+- Senza codice del gruppo chiunque abbia l'indirizzo può giocare. Con il codice attivo le regole del database non fanno leggere né scrivere niente a un telefono che non è entrato: le pagine si aprono, perché il sito su GitHub è pubblico, ma restano vuote. Il codice è valido finché nessuno lo passa in giro: se succede, cambialo.
+- I valori di FantaBusta li può aggiornare chiunque giochi, al massimo ogni due minuti, e le regole accettano solo un elenco completo di valori. L'aggiornamento da GitHub entra nel database come un nuovo utente anonimo ogni volta: in Firebase, sotto **Authentication → Users**, è normale vederne uno in più ogni settimana. Con il codice del gruppo attivo entra con la chiave `CHIAVE_PPGAMES` e alla fine si toglie da solo dall'elenco dei telefoni del gruppo.
 - Le parole di Scovaparole vengono dal dizionario italiano di OpenOffice e LibreOffice (licenza GPL 3, vedi `LICENZA-dizionario.txt`).
 - Il gioco non ha un server suo che custodisca risposte e buste: chi è pratico degli strumenti per sviluppatori del browser, da PC, potrebbe sbirciare (anche le risposte giuste del Quiz). Dal telefono non si vedono. In Giro palla è il telefono di chi risponde a controllare il nome: tra amici funziona, ma non è una gara con l'arbitro.

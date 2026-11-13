@@ -475,7 +475,7 @@
     "alias": {
       ".read": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists())",
       "$uid": {
-        ".write": "auth != null && ((auth.uid === $uid && newData.exists() && root.child('links').child(newData.child('code').val()).child('pid').val() === newData.child('pid').val() && root.child('links').child(newData.child('code').val()).child('exp').val() > now) || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
+        ".write": "auth != null && ((auth.uid === $uid && newData.exists() && root.child('links').child(newData.child('code').val()).child('pid').val() === newData.child('pid').val() && root.child('links').child(newData.child('code').val()).child('exp').val() > now) || (auth.uid === $uid && newData.exists() && newData.child('code').isString() && root.child('recov').child(newData.child('code').val()).child('pid').val() === newData.child('pid').val()) || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
         ".validate": "newData.hasChildren(['pid', 'code']) && newData.child('code').isString()"
       }
     },
@@ -633,6 +633,26 @@
         ".read": "auth != null && auth.uid === $uid",
         ".write": "auth != null && ((auth.uid === $uid && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && newData.exists()) || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
         ".validate": "newData.isNumber() && newData.val() === now && (!data.exists() || data.val() <= now - 15000)"
+      }
+    },
+    "recovery": {
+      "$pid": {
+        ".read": "auth != null && ((auth.uid === $pid || root.child('alias').child(auth.uid).child('pid').val() === $pid) || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
+        ".write": "auth != null && ((root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)) || ((!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && (auth.uid === $pid || root.child('alias').child(auth.uid).child('pid').val() === $pid)))",
+        ".validate": "!newData.exists() || (newData.isString() && newData.val().matches(/^[A-Z0-9]{10}$/))"
+      }
+    },
+    "recov": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && ((root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)) || ((!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && ((newData.exists() && (auth.uid === newData.child('pid').val() || root.child('alias').child(auth.uid).child('pid').val() === newData.child('pid').val()) && newData.parent().parent().child('recovery').child(newData.child('pid').val()).val() === $code) || (!newData.exists() && data.exists() && (auth.uid === data.child('pid').val() || root.child('alias').child(auth.uid).child('pid').val() === data.child('pid').val())))))",
+        ".validate": "!newData.exists() || ($code.matches(/^[A-Z0-9]{10}$/) && newData.hasChildren(['pid']) && newData.child('pid').isString() && newData.child('pid').val().length <= 40)",
+        "pid": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     }
   }

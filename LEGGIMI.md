@@ -136,9 +136,11 @@ In **Altre impostazioni** puoi copiare di nuovo codice e configurazione, cambiar
 ## Il profilo
 
 - Ognuno scrive il nome una volta nella pagina iniziale. Resta salvato su quel telefono e vale per tutti i giochi e per la classifica.
-- **Cambiare telefono:** sul telefono vecchio premi **Collega un altro telefono** e compare un codice di 6 caratteri, valido 10 minuti. Sul telefono nuovo premi **Hai già giocato con un altro telefono? Collegalo** e scrivilo. Da quel momento i due telefoni hanno lo stesso nome e la stessa classifica.
-- Su iPhone l'icona sulla schermata Home e Safari contano come due telefoni diversi: collegali con il codice.
-- Se un telefono è perso e non può creare il codice, si gioca con un nome nuovo; la classifica del vecchio profilo resta separata.
+- **Codice di recupero (consigliato a tutti, indispensabile per l'amministratore):** nel profilo premi **Codice di recupero**: compare un codice di 10 caratteri che non scade. Scrivilo nelle note del telefono. Se cambi telefono, perdi l'icona o ti accorgi di essere rientrato da zero, scrivilo in **Ho un codice** (oppure, davanti alla schermata del codice del gruppo, in **Ho già giocato: riprendi il mio nome**): torni la stessa persona, con nome, classifica e, se lo eri, amministrazione. **Cambia codice** ne crea uno nuovo e il vecchio smette di valere. Non darlo a nessuno.
+- **Cambiare telefono con il vecchio ancora in mano:** sul telefono vecchio premi **Collega un altro telefono**: compare un codice di 6 caratteri, valido 10 minuti. Sul telefono nuovo scrivilo in **Ho un codice**. Da quel momento i due telefoni hanno lo stesso nome e la stessa classifica.
+- Su iPhone l'icona sulla schermata Home e Safari contano come due telefoni diversi, e rimettere l'icona ne crea uno nuovo: collegali con uno dei due codici.
+- Se il codice di recupero non c'è e il telefono è perso, l'amministratore può unire le due persone dal pannello (**Unisci a un altro**).
+- Senza console di Firebase si recupera tutto con il codice. Se hai perso anche l'amministrazione senza avere il codice: in Firebase, **Realtime Database → Dati**, elimina il nodo `admins`, apri subito `admin.html` e premi il tasto per diventare amministratore, poi unisci le due persone con lo stesso nome.
 
 ## La classifica
 

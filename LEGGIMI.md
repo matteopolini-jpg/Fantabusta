@@ -151,6 +151,10 @@ In **Altre impostazioni** puoi copiare di nuovo codice e configurazione, cambiar
 
 ## FantaBusta: valori dei giocatori e asta
 
+- **L'offerta:** scrivi la cifra, usa + e − (tenendoli premuti la cifra scorre), trascina il cursore o tocca una delle cifre pronte. Sotto leggi quanti fantamilioni ti resterebbero e per quanti posti. **Passo** e **Sigilla la busta** restano sempre in fondo allo schermo.
+- **Le buste** si aprono una alla volta, dalla più bassa alla più alta, poi arriva il timbro. Chi ha già consegnato si vede dalla bustina accanto al nome.
+- Con i valori visibili la cornice della figurina dice il livello del giocatore: bronzo, argento (da 80) oppure oro (da 86).
+
 - Ogni giocatore vale il suo valore di mercato su Transfermarkt, in milioni di euro. Alla fine si sommano i valori dei titolari: vince la rosa che vale di più. Le offerte all'asta restano in fantamilioni (FM).
 - Se il giocatore estratto può andare a una squadra sola, perché le altre quel ruolo l'hanno già completo, non si apre la busta: va a lei subito per 1 FM («senza busta»). Così chi resta da solo su un ruolo prende il primo che esce.
 - I giocatori che su Transfermarkt non hanno una valutazione non vengono estratti.
@@ -183,12 +187,12 @@ In **Altre impostazioni** puoi copiare di nuovo codice e configurazione, cambiar
 ## Trova le differenze
 
 1. A ogni manche tutti vedono la stessa coppia di disegni, uno sopra l'altro. I disegni li crea il gioco ogni volta, quindi non si ripetono mai uguali: cambiano gli oggetti, i colori, le posizioni e le differenze.
-   Gli ambienti sono 13 e ogni manche ne usa uno diverso: il parco, il mare, la città, la casa, la montagna innevata, la campagna, lo spazio, il fondo del mare, la festa, il campeggio di notte, il bosco d'autunno, il deserto e lo stadio. Il nome dell'ambiente compare durante il conto alla rovescia.
+   Gli ambienti sono 23 e ogni manche ne usa uno diverso. Dieci sono più fitti, con oggetti fatti di tanti dettagli che possono cambiare uno per uno (le palline dell'albero, le cabine della ruota, i barattoli sullo scaffale, le scritte alla lavagna): il mercato, la cucina, il porto, la giungla, il castello, Natale, il luna park, la classe, l'orto e l'isola dei pirati. Gli altri: il parco, il mare, la città, la casa, la montagna innevata, la campagna, lo spazio, il fondo del mare, la festa, il campeggio di notte, il bosco d'autunno, il deserto e lo stadio. Il nome dell'ambiente compare durante il conto alla rovescia.
 2. Chi tocca per primo una differenza, su uno qualsiasi dei due disegni, prende il punto: compare un cerchio con il suo colore sul telefono di tutti.
 3. Un tocco nel punto sbagliato blocca per 3 secondi.
 4. La manche finisce quando le differenze sono state trovate tutte o quando scade il tempo; poi si vedono anche quelle mancate, tratteggiate.
 5. Le differenze possono essere un oggetto che manca o in più, un colore, una forma, una misura, un verso, un numero (le candeline sulla torta, i bottoni del pupazzo di neve, il numero sulla maglia, il punteggio sul tabellone).
-6. Chi organizza sceglie le differenze per disegno (5, 7 o 10), le manche (1, 3 o 5) e il tempo massimo (1, 2 o 3 minuti). Ognuno per sé, a squadre (le differenze dei compagni si sommano) o da soli per allenarsi.
+6. Chi organizza sceglie le differenze per disegno (5, 7, 10 o 12), le manche (1, 3 o 5) e il tempo massimo (1, 2 o 3 minuti). Ognuno per sé, a squadre (le differenze dei compagni si sommano) o da soli per allenarsi.
 
 ## Parola segreta
 

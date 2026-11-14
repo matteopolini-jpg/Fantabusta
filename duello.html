@@ -52,7 +52,7 @@ h2 { font: 700 19px/1.15 'DM Sans', sans-serif; }
 .field { width: 100%; font: 500 18px 'DM Sans', sans-serif; padding: 11px 14px; border: 2px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--paper-ink); min-height: 50px; }
 .field:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255, 200, 87, .35); }
 .code-in { max-width: 150px; text-transform: uppercase; letter-spacing: .2em; font-weight: 700; }
-.seg { display: inline-flex; border: 2px solid var(--line); border-radius: 12px; overflow: hidden; background: rgba(255, 255, 255, .04); max-width: 100%; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 2px solid var(--line); border-radius: 12px; overflow: hidden; background: rgba(255, 255, 255, .04); max-width: 100%; }
 .seg button { font: 600 15px 'DM Sans', sans-serif; color: var(--ink); background: transparent; border: 0; padding: 9px 13px; cursor: pointer; min-height: 44px; }
 .seg button + button { border-left: 1.5px solid var(--line); }
 .seg button[aria-pressed=true] { background: var(--paper); color: var(--paper-ink); }
@@ -121,6 +121,9 @@ h2 { font: 700 19px/1.15 'DM Sans', sans-serif; }
 .tl.up { background: var(--paper); border-color: var(--paper); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
 .tl.new { animation: flipin .34s cubic-bezier(.3, 1.4, .4, 1) both; }
 .tl.first.up { background: var(--gold); border-color: var(--gold); }
+.def-l i { font-style: normal; font-weight: 600; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: rgba(12, 31, 39, .08); color: #40545b; }
+.def.lv1 .def-l i { background: #ffe1a6; color: #6a4a00; } .def.lv2 .def-l i { background: #ffc4b5; color: #7a2413; }
+.tiles.xlong { gap: 2px; } .tiles.xlong .tl { font-size: 17px; border-radius: 5px; border-width: 1.5px; }
 .tiles.long { gap: 3px; } .tiles.long .tl { font-size: 21px; border-radius: 6px; }
 .tiles.sm .tl { flex-basis: 28px; max-width: 28px; font-size: 18px; border-radius: 6px; }
 .tiles.good .tl { background: var(--ok); border-color: var(--ok); }
@@ -161,6 +164,6 @@ h2 { font: 700 19px/1.15 'DM Sans', sans-serif; }
 <main id="app" data-screen=""><div class="msg"><p>Un attimo…</p></div></main>
 <noscript><p style="padding:16px">Il gioco ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="duello.js?v=79aca988"></script>
+<script type="module" src="duello.js?v=922459a8"></script>
 </body>
 </html>

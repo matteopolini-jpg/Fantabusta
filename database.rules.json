@@ -17,7 +17,7 @@
         },
         "bids": {
           "$uid": {
-            ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && auth.uid === $uid && root.child('games').child($code).child('state/phase').val() === 'bid' && root.child('games').child($code).child('state/teams').child($uid).exists() && newData.child('r').val() === root.child('games').child($code).child('state/round').val() && now <= root.child('games').child($code).child('state/cur/end').val() + 1500 && (!data.exists() || data.child('r').val() !== newData.child('r').val())",
+            ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && (auth.uid === $uid || ($uid.matches(/^bot[1-9]$/) && root.child('games').child($code).child('state/solo').val() === true && root.child('games').child($code).child('state/creator').val() === auth.uid)) && root.child('games').child($code).child('state/phase').val() === 'bid' && root.child('games').child($code).child('state/teams').child($uid).exists() && newData.child('r').val() === root.child('games').child($code).child('state/round').val() && now <= root.child('games').child($code).child('state/cur/end').val() + 1500 && (!data.exists() || data.child('r').val() !== newData.child('r').val())",
             ".validate": "newData.hasChildren(['r', 'a', 't']) && newData.child('a').isNumber() && newData.child('a').val() >= 0 && newData.child('a').val() <= 100000"
           }
         },
@@ -706,6 +706,39 @@
         ".validate": "!newData.exists() || ($code.matches(/^[A-Z0-9]{10}$/) && newData.hasChildren(['pid']) && newData.child('pid').isString() && newData.child('pid').val().length <= 40)",
         "pid": {
           ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "super": {
+      ".read": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists())",
+      ".indexOn": [
+        "at"
+      ],
+      "$code": {
+        ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && !newData.exists() && (data.child('info/creator').val() === auth.uid || (root.child('admins').child(auth.uid).val() === true || (root.child('alias').child(auth.uid).child('pid').isString() && root.child('admins').child(root.child('alias').child(auth.uid).child('pid').val()).val() === true)))",
+        ".validate": "$code.matches(/^[A-Z]{4}$/)",
+        "at": {
+          ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && !data.exists() && newData.parent().child('info/creator').val() === auth.uid",
+          ".validate": "newData.isNumber()"
+        },
+        "info": {
+          ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && (!data.exists() ? newData.child('creator').val() === auth.uid : data.child('creator').val() === auth.uid)",
+          ".validate": "newData.hasChildren(['creator', 'status', 'games']) && newData.child('status').val().matches(/^(open|done)$/)"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && newData.parent().parent().child('info').exists() && ((auth.uid === $uid && (newData.parent().parent().child('info/status').val() === 'open' || !newData.exists())) || newData.parent().parent().child('info/creator').val() === auth.uid)",
+            ".validate": "!newData.exists() || (newData.hasChildren(['name']) && newData.child('name').isString() && newData.child('name').val().length <= 40)"
+          }
+        },
+        "m": {
+          "$g": {
+            ".write": "auth != null && (!root.child('access').child('code').exists() || root.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).exists() || root.child('alias').child(auth.uid).exists()) && newData.parent().parent().child('info/status').val() === 'open' && (newData.parent().parent().child('info/creator').val() === auth.uid || (newData.parent().parent().child('players').child(auth.uid).exists() && !data.exists()))",
+            ".validate": "$g.matches(/^(fantabusta|ncc|scv|diff|psg|quiz|gp|duel)$/) && (!newData.exists() || (newData.isString() && newData.val().matches(/^[A-Z]{4}$/)))"
+          }
         },
         "$other": {
           ".validate": false

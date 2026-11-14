@@ -25,7 +25,7 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ### 2. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `duello.html`, `duello.js`, `calciatori.json`, `manifest.webmanifest`, `sw.js`, `notifiche-worker.js`, `badge.png`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `duello.html`, `duello.js`, `supersfida.html`, `supersfida.js`, `calciatori.json`, `manifest.webmanifest`, `sw.js`, `notifiche-worker.js`, `badge.png`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -271,14 +271,30 @@ L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni tele
 
 ## Il Duello
 
-1. Da 2 a 8 giocatori, ognuno con lo stesso tempo sul suo cronometro (60, 90 o 120 secondi). L'ordine dei turni è tirato a sorte.
+1. Da 1 a 10 giocatori, ognuno con lo stesso tempo sul suo cronometro (60, 90 o 120 secondi). L'ordine dei turni è tirato a sorte.
 2. A chi ha la mano arriva una definizione. Della parola si vedono subito l'iniziale e il numero di lettere; poi si scopre una lettera ogni 2,6 secondi. L'ultima resta sempre coperta.
 3. Mentre hai la mano il tuo tempo scorre. Scrivi la parola: appena è giusta (non serve premere Invio) il tuo cronometro si ferma e la mano passa al prossimo. Se è sbagliata riprovi quante volte vuoi, e gli altri vedono che cosa hai scritto.
 4. **Cambia parola** fa arrivare un'altra definizione, ma costa 3 secondi.
 5. Chi finisce il tempo è fuori. Vince l'ultimo che ha ancora tempo. In classifica contano le posizioni: primo chi resta, poi gli altri dall'ultimo uscito al primo.
 6. Se chi ha la mano chiude il gioco o perde la connessione, il suo tempo continua a scorrere: quando finisce, lo mette fuori il telefono di un altro giocatore.
-7. Accenti e maiuscole non contano. Le parole sono 490, con le definizioni scritte per questo gioco, nel file `duello.js`; in una partita non si ripetono.
+7. Accenti e maiuscole non contano. Alla creazione si sceglie il tipo di parole: **Facili** (490 parole di tutti i giorni), **Medie** (166: mestieri, scienza, storia, cucina), **Difficili** (151: retorica, mito, strumenti rari) oppure **Crescente** (due giri di facili, due di medie, poi solo difficili). La difficoltà si vede accanto alla definizione. Le definizioni sono scritte per questo gioco, nel file `duello.js`; in una partita non si ripetono.
 8. **Allenati da solo:** quante parole indovini prima che finisca il tempo? Non entra in classifica.
+
+## Super sfida
+
+Una serata con più giochi e una classifica sola. Si apre dalla scatola **Super sfida** in cima alla sala giochi (pagina `supersfida.html`).
+
+1. Chi organizza crea la Super sfida e sceglie i giochi (all'inizio sono scelti tutti e otto; tocca un gioco per toglierlo). Ottiene un codice di 4 lettere da mandare agli amici con **Invita**.
+2. Gli altri aprono la Super sfida dall'elenco o con il codice e premono **Iscriviti**.
+3. Per ogni gioco un iscritto preme **Crea la partita**: si apre il gioco con una riga blu in cima («Super sfida ABCD: crea qui la partita, vale per la sfida») e la partita che crea lì resta agganciata alla sfida. Gli altri, dalla pagina della sfida, premono **Entra**. Durante il gioco la riga blu riporta alla classifica della sfida.
+4. Finita una partita, i punti arrivano da soli: 1º 10, 2º 8, 3º 6, 4º 5, 5º 4, 6º 3, 7º 2, dall'8º in giù 1. Chi non gioca un gioco prende 0. A pari punti conta chi ha vinto più giochi, poi chi è salito più volte sul podio.
+5. Se una partita viene annullata o chiusa senza classifica, chi organizza preme **Sgancia** e se ne crea un'altra.
+6. Alla fine chi organizza preme **Chiudi la Super sfida e mostra il podio**. Si può riaprire o eliminare; eliminando la sfida le partite restano nella classifica di sempre di ogni gioco.
+7. Gli allenamenti da soli non si agganciano mai alla sfida.
+
+## Giocare da soli
+
+Ogni gioco va da 1 a 10 giocatori. **Allenati da solo** fa partire subito una partita per te, che non compare tra le partite aperte e non entra in classifica. In FantaBusta il pulsante è **Allenati contro il computer**: giochi l'asta contro tre squadre guidate dal telefono, che offrono di più per i giocatori che valgono di più e tengono da parte i soldi per i posti che restano. Nella Parola segreta a turni servono almeno 2 giocatori: da soli si gioca con le parole scelte dal gioco.
 
 ## Installazione da zero (senza FantaBusta già online)
 

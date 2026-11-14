@@ -25,7 +25,7 @@ Va rifatto a ogni aggiornamento che contiene un `database.rules.json` nuovo. Sen
 ### 2. Carica i file nuovi
 
 1. Apri il repository su GitHub, premi **Add file → Upload files**.
-2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `calciatori.json`, `manifest.webmanifest`, `sw.js`, `notifiche-worker.js`, `badge.png`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
+2. Apri la cartella estratta e trascina **tutto quello che contiene** (non la cartella stessa): la cartella `.github` e i file `index.html`, `fantabusta.html`, `app.js`, `hub.js`, `admin.html`, `admin.js`, `transfermarkt-id.json`, `nomicose.html`, `nomicose.js`, `scovaparole.html`, `scovaparole.js`, `scovaparole-griglie.json`, `LICENZA-dizionario.txt`, `differenze.html`, `differenze.js`, `parola.html`, `parola.js`, `quiz.html`, `quiz.js`, `giropalla.html`, `giropalla.js`, `duello.html`, `duello.js`, `calciatori.json`, `manifest.webmanifest`, `sw.js`, `notifiche-worker.js`, `badge.png`, `logo.png`, `icon-192.png`, `icon-512.png`, `icon-maskable.png`, `apple-touch-icon.png`, `database.rules.json`, `LEGGIMI.md`.
 3. Premi **Commit changes**.
 
 Il file `config.js` non è nel pacchetto: il tuo resta com'è. Non va toccato.
@@ -268,6 +268,17 @@ Chi crea la partita sceglie:
 10. Alla fine, **Tutti i giri** mostra le risposte e il cartellino di ogni giro.
 
 L'elenco dei calciatori e delle squadre è nel file `calciatori.json`: ogni telefono lo scarica quando apre il gioco.
+
+## Il Duello
+
+1. Da 2 a 8 giocatori, ognuno con lo stesso tempo sul suo cronometro (60, 90 o 120 secondi). L'ordine dei turni è tirato a sorte.
+2. A chi ha la mano arriva una definizione. Della parola si vedono subito l'iniziale e il numero di lettere; poi si scopre una lettera ogni 2,6 secondi. L'ultima resta sempre coperta.
+3. Mentre hai la mano il tuo tempo scorre. Scrivi la parola: appena è giusta (non serve premere Invio) il tuo cronometro si ferma e la mano passa al prossimo. Se è sbagliata riprovi quante volte vuoi, e gli altri vedono che cosa hai scritto.
+4. **Cambia parola** fa arrivare un'altra definizione, ma costa 3 secondi.
+5. Chi finisce il tempo è fuori. Vince l'ultimo che ha ancora tempo. In classifica contano le posizioni: primo chi resta, poi gli altri dall'ultimo uscito al primo.
+6. Se chi ha la mano chiude il gioco o perde la connessione, il suo tempo continua a scorrere: quando finisce, lo mette fuori il telefono di un altro giocatore.
+7. Accenti e maiuscole non contano. Le parole sono 490, con le definizioni scritte per questo gioco, nel file `duello.js`; in una partita non si ripetono.
+8. **Allenati da solo:** quante parole indovini prima che finisca il tempo? Non entra in classifica.
 
 ## Installazione da zero (senza FantaBusta già online)
 

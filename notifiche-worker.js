@@ -15,6 +15,7 @@ const GAMES = {
   psg: ['Parola segreta', 'parola.html', 'a Parola segreta'],
   quiz: ['Quiz', 'quiz.html', 'al Quiz'],
   gp: ['Giro palla', 'giropalla.html', 'a Giro palla'],
+  duel: ['Il Duello', 'duello.html', 'a Il Duello'],
 };
 const MAX_PHONES = 36;   // il piano gratuito permette 50 richieste esterne per invito: 6 al database, 36 ai telefoni, 6 per le pulizie
 const TTL = '900';       // un invito vecchio di un quarto d'ora non serve più: il telefono spento non lo riceve

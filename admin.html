@@ -174,6 +174,16 @@ table.board { width: 100%; border-collapse: collapse; font-size: 15px; backgroun
 .box-flip b::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px); height: 2px; background: #080808; }
 .g-gp { background: #161616; color: #f2ede1; }
 
+/* Il Duello: fondale petrolio, cronometro color corallo */
+.box-duel { width: 95%; rotate: -.5deg; background: #0f2730 radial-gradient(120% 90% at 0% 0%, #23505f, transparent 60%); box-shadow: 0 7px 0 -1px #071419, 0 15px 18px -10px rgba(21, 37, 58, .5); }
+.box-duel:active { box-shadow: 0 3px 0 -1px #071419, 0 8px 12px -8px rgba(21, 37, 58, .5); }
+.box-duel .box-t { font: 400 33px/1 Anton, Impact, 'Saira Condensed', sans-serif; color: #fbf3e0; text-transform: uppercase; letter-spacing: .01em; text-shadow: 0 3px 0 #c9462a; }
+.box-duel .box-s { color: #9db6bd; }
+.box-clock { flex: 0 0 auto; display: flex; flex-direction: column; gap: 5px; padding: 8px 9px; border-radius: 10px; background: #1b3f4c; border: 2px solid #ffc857; }
+.box-clock b { font: 400 22px/1 Anton, Impact, sans-serif; color: #ff6b4a; letter-spacing: .03em; }
+.box-clock i { display: block; height: 5px; border-radius: 3px; background: linear-gradient(90deg, #ffc857 62%, rgba(0, 0, 0, .35) 62%); }
+.g-duel { background: #0f2730; color: #fbf3e0; }
+
 /* Pannello dell'amministratore (si aggiunge a hub.css) */
 .sec { margin-top: 26px; }
 .sec > h2 { font: 800 22px Figtree; letter-spacing: -.01em; margin-bottom: 4px; }
@@ -277,6 +287,6 @@ table.board { width: 100%; border-collapse: collapse; font-size: 15px; backgroun
 <main id="app"></main>
 <noscript><p style="padding:16px">The PP Games ha bisogno di JavaScript attivo.</p></noscript>
 <script src="config.js"></script>
-<script type="module" src="admin.js?v=0160f926"></script>
+<script type="module" src="admin.js?v=f1ce9f14"></script>
 </body>
 </html>
